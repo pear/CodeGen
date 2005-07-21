@@ -71,9 +71,9 @@ abstract class CodeGen_Element
      * @return  string C code 
      */
     function cCode($name)
-	{
-		return ""; 
-	}
+    {
+        return ""; 
+    }
 
     /**
      * Generate C code header block for all elements of this class
@@ -118,7 +118,7 @@ abstract class CodeGen_Element
     */
     static function cCodeEditorSettings() 
   {
-	  return "";
+      return "";
   }
 
 
@@ -130,9 +130,9 @@ abstract class CodeGen_Element
      * @return  string documentation content
      */
     function docEntry($extension)
-	{
-		return "";
-	}
+    {
+        return "";
+    }
 
     /**
      * Generate documentation header block for all elements of this class
@@ -167,7 +167,7 @@ abstract class CodeGen_Element
     */
     static function docEditorSettings($level=3) 
     {
-		return "";
+        return "";
     }
 
 }

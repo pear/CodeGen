@@ -41,41 +41,41 @@
 require_once("CodeGen/Tools/Indent.php");
 
 class CodeGen_Tools_Code {
-	var $language = 'c';
+    var $language = 'c';
 
-	var $indentSteps = 4;
+    var $indentSteps = 4;
 
-	/**
-	 * Generate simple indented codeblock
-	 *
-	 * @param  string   code
-	 * @param  int      indent level
-	 * @return string   formated code block
-	 */
-	function block($code, $indent = 1) {
-		return CodeGen_Tools_Indent::indent($indent*$this->indentSteps, $code);		
-	}
+    /**
+     * Generate simple indented codeblock
+     *
+     * @param  string   code
+     * @param  int      indent level
+     * @return string   formated code block
+     */
+    function block($code, $indent = 1) {
+        return CodeGen_Tools_Indent::indent($indent*$this->indentSteps, $code);     
+    }
 
 
-	/**
-	 * Generate indented codeblock with variable declarations
-	 *
-	 * @param  string   code
-	 * @param  int      indent level
-	 * @return string   formated code block
-	 */
-	function varblock($code, $indent = 1) {	   
-		if ($this->language == 'c') {
- 			$head = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, "do {\n");	
- 			$foot = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, "} while (0);\n");	
-			$indent++;
-		} else {
-			$head = $foot = "";
-		}
+    /**
+     * Generate indented codeblock with variable declarations
+     *
+     * @param  string   code
+     * @param  int      indent level
+     * @return string   formated code block
+     */
+    function varblock($code, $indent = 1) {    
+        if ($this->language == 'c') {
+            $head = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, "do {\n");   
+            $foot = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, "} while (0);\n");   
+            $indent++;
+        } else {
+            $head = $foot = "";
+        }
 
-		$code = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, $code);		
-		return $head . $code . $foot;
-	}
+        $code = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, $code);      
+        return $head . $code . $foot;
+    }
 
-	
+    
 };

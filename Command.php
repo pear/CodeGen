@@ -44,89 +44,89 @@ require_once "CodeGen/Extension.php";
 class CodeGen_Command
 {
     /**
-	 * The extension the command class is going to work on
-	 *
-	 * @var object
-	 */
-	var $extension;
+     * The extension the command class is going to work on
+     *
+     * @var object
+     */
+    var $extension;
 
-	/**
-	 * Command constructor
-	 *
-	 * @param object  Extension to work on
-	 */
-	function __construct(CodeGen_Extension $extension)
-	{
-		$this->extension = $extension;
+    /**
+     * Command constructor
+     *
+     * @param object  Extension to work on
+     */
+    function __construct(CodeGen_Extension $extension)
+    {
+        $this->extension = $extension;
 
         // no compromise
-		error_reporting(E_ALL);
+        error_reporting(E_ALL);
 
         // but make sure errors are written to stderr so they can't be collected by ob_* functions
-		set_error_handler(array($this, "errorHandler"));
+        set_error_handler(array($this, "errorHandler"));
 
-		list($shortOptions, $longOptions) = $this->commandOptions();
+        list($shortOptions, $longOptions) = $this->commandOptions();
 
-		$this->options = new CodeGen_Tools_Getopt($shortOptions, 
-												   $longOptions,
-												   array($this, "showUsage"));
+        $this->options = new CodeGen_Tools_Getopt($shortOptions, 
+                                                   $longOptions,
+                                                   array($this, "showUsage"));
 
-		if ($this->options->have("help", "h")) {
-			$this->showVersion();
-			$this->showUsage();
-			exit(0);
-		}
-		
-		if ($this->options->have("version")) {
-			$this->showVersion();
-			exit(0);
-		}
-	}
+        if ($this->options->have("help", "h")) {
+            $this->showVersion();
+            $this->showUsage();
+            exit(0);
+        }
+        
+        if ($this->options->have("version")) {
+            $this->showVersion();
+            exit(0);
+        }
+    }
 
-	/**
-	 * Define the available command line options
-	 *
-	 * @return array  the available short and long options
-	 */
-	function commandOptions()
-	{
-		$shortOptions = "fd=hqx";
+    /**
+     * Define the available command line options
+     *
+     * @return array  the available short and long options
+     */
+    function commandOptions()
+    {
+        $shortOptions = "fd=hqx";
 
-		$longOptions = array( "help",
+        $longOptions = array( "help",
                               "dir=",
-							  "experimental",
-							  "force",
-							  "quiet", 
-							  "version", 
-							  );
+                              "experimental",
+                              "force",
+                              "quiet", 
+                              "version", 
+                              );
 
-		return array($shortOptions, $longOptions);
-	}
+        return array($shortOptions, $longOptions);
+    }
 
-	/**
-	 * Show copyright and version info taken from extension class
-	 *
-	 */
-	function showVersion() 
-	{
-		$fp = fopen("php://stderr", "w");
-		fputs($fp, basename($_SERVER["argv"][0]) . " ". $this->extension->version() . "," . $this->extension->copyright() . "\n");
-		fclose($fp);
-	}
+    /**
+     * Show copyright and version info taken from extension class
+     *
+     */
+    function showVersion() 
+    {
+        $fp = fopen("php://stderr", "w");
+        fputs($fp, basename($_SERVER["argv"][0]) . " ". $this->extension->version() . "," . $this->extension->copyright() . "\n");
+        fclose($fp);
+    }
 
-	
-	/**
-	 * Show usage/help message
-	 *
-	 * @param string  optional error message to display
-	 */
+    
+    /**
+     * Show usage/help message
+     *
+     * @param string  optional error message to display
+     */
     function showUsage($message = false)
     {
-		$fp = fopen("php://stderr", "w");
-		
-		if ($message) fputs($fp, "$message\n\n");
-		
-		fputs($fp, "Usage:
+        $fp = fopen("php://stderr", "w");
+        
+        if ($message) fputs($fp, "$message\n\n");
+        
+        fputs($fp, "Usage:
 
 ". $_SERVER["argv"][0] ." [-hxf] [-d dir] [--version] specfile.xml
 
@@ -137,103 +137,103 @@ class CodeGen_Command
   --version          show version info
 ");
 
-		fclose($fp);
-	}
+        fclose($fp);
+    }
 
-	/**
-	 * Show error message and bailout
-	 *
-	 * @param string  error message
-	 */
-	function terminate($msg)
-	{
-		$stderr = @fopen("php://stderr/", "w");
-		if ($stderr) {
-			fprintf($stderr, "%s\n", $msg);
-			fclose($stderr);
-		} else {
-			echo "$msg\n";
-		}
-		exit(3);
-	}
+    /**
+     * Show error message and bailout
+     *
+     * @param string  error message
+     */
+    function terminate($msg)
+    {
+        $stderr = @fopen("php://stderr/", "w");
+        if ($stderr) {
+            fprintf($stderr, "%s\n", $msg);
+            fclose($stderr);
+        } else {
+            echo "$msg\n";
+        }
+        exit(3);
+    }
 
-	/**
-	 * Error handler callback
-	 *
-	 * @param int     error level number
-	 * @param string  error message
-	 * @param string  source file
-	 * @param int     source line
-	 */
-	function errorHandler($errno, $errstr, $errfile, $errline) 
-	{
-		if ($errno & error_reporting()) {
-			$fp = fopen("php://stderr", "w");
-			
-			switch ($errno) {
-			case E_ERROR           : fputs($fp, "Error"); break;
-			case E_WARNING         : fputs($fp, "Warning"); break;
-			case E_PARSE           : fputs($fp, "Parsing Error"); break;
-			case E_NOTICE          : fputs($fp, "Notice"); break;
-			case E_CORE_ERROR      : fputs($fp, "Core Error"); break;
-			case E_CORE_WARNING    : fputs($fp, "Core Warning"); break;
-			case E_COMPILE_ERROR   : fputs($fp, "Compile Error"); break;
-			case E_COMPILE_WARNING : fputs($fp, "Compile Warning"); break;
-			case E_USER_ERROR      : fputs($fp, "User Error"); break;
-			case E_USER_WARNING    : fputs($fp, "User Warning"); break;
-			case E_USER_NOTICE     : fputs($fp, "User Notice"); break;
-			case E_STRICT          : fputs($fp, "Runtime Notice"); break;
-			default                : fputs($fp, "Unknown Error"); break;
-			}
-			
-			fputs($fp, ": $errstr in $errfile on line $errline\n");
-			fclose($fp);
-		}
-	}
+    /**
+     * Error handler callback
+     *
+     * @param int     error level number
+     * @param string  error message
+     * @param string  source file
+     * @param int     source line
+     */
+    function errorHandler($errno, $errstr, $errfile, $errline) 
+    {
+        if ($errno & error_reporting()) {
+            $fp = fopen("php://stderr", "w");
+            
+            switch ($errno) {
+            case E_ERROR           : fputs($fp, "Error"); break;
+            case E_WARNING         : fputs($fp, "Warning"); break;
+            case E_PARSE           : fputs($fp, "Parsing Error"); break;
+            case E_NOTICE          : fputs($fp, "Notice"); break;
+            case E_CORE_ERROR      : fputs($fp, "Core Error"); break;
+            case E_CORE_WARNING    : fputs($fp, "Core Warning"); break;
+            case E_COMPILE_ERROR   : fputs($fp, "Compile Error"); break;
+            case E_COMPILE_WARNING : fputs($fp, "Compile Warning"); break;
+            case E_USER_ERROR      : fputs($fp, "User Error"); break;
+            case E_USER_WARNING    : fputs($fp, "User Warning"); break;
+            case E_USER_NOTICE     : fputs($fp, "User Notice"); break;
+            case E_STRICT          : fputs($fp, "Runtime Notice"); break;
+            default                : fputs($fp, "Unknown Error"); break;
+            }
+            
+            fputs($fp, ": $errstr in $errfile on line $errline\n");
+            fclose($fp);
+        }
+    }
 
-	/**
-	 * Create extension using the given parser 
-	 *
-	 * @param object  Extension parser
-	 */
-	function execute($parser)
-	{
-		// normal operation: read XML file and go with that
-		$arguments = $this->options->arguments();
-		if (count($arguments) != 1) {
-			$this->showUsage();
-			exit(3);
-		}
-		
-		$xmlfile = $arguments[0];
-		
-		if (!file_exists($xmlfile) || !is_readable($xmlfile)) {
-			$this->terminate("Cannot open spec file '$xmlfile'");
-		}
-		
-		// create parser for extension specs
-		$err = $parser->setInputFile($xmlfile);
-		if (PEAR::isError($err)) {
-			$this->terminate($err->message);
-		}
-		
-		// do the actual parsing
-		$err = $parser->parse();
-		if (PEAR::isError($err)) {
-			$this->terminate($err->getMessage()." ".$err->getUserInfo());
-		} else if(is_string($err)) {
-		  $this->terminate("");
-		}
-		
-		// and now create the actual extension from the collected specs
-		$err = $this->extension->createExtension($this->options->value("d", "dir"), $this->options->have("f", "force"));
-		if (PEAR::isError($err)) {
-			$this->terminate($err->getMessage()." ".$err->getUserInfo());
-		}
-		
-		if (!$this->options->have("q", "quiet")) {
-			echo $this->extension->successMsg($this->extension->name);
-		}
-		
-	}
+    /**
+     * Create extension using the given parser 
+     *
+     * @param object  Extension parser
+     */
+    function execute($parser)
+    {
+        // normal operation: read XML file and go with that
+        $arguments = $this->options->arguments();
+        if (count($arguments) != 1) {
+            $this->showUsage();
+            exit(3);
+        }
+        
+        $xmlfile = $arguments[0];
+        
+        if (!file_exists($xmlfile) || !is_readable($xmlfile)) {
+            $this->terminate("Cannot open spec file '$xmlfile'");
+        }
+        
+        // create parser for extension specs
+        $err = $parser->setInputFile($xmlfile);
+        if (PEAR::isError($err)) {
+            $this->terminate($err->message);
+        }
+        
+        // do the actual parsing
+        $err = $parser->parse();
+        if (PEAR::isError($err)) {
+            $this->terminate($err->getMessage()." ".$err->getUserInfo());
+        } else if(is_string($err)) {
+          $this->terminate("");
+        }
+        
+        // and now create the actual extension from the collected specs
+        $err = $this->extension->createExtension($this->options->value("d", "dir"), $this->options->have("f", "force"));
+        if (PEAR::isError($err)) {
+            $this->terminate($err->getMessage()." ".$err->getUserInfo());
+        }
+        
+        if (!$this->options->have("q", "quiet")) {
+            echo $this->extension->successMsg($this->extension->name);
+        }
+        
+    }
 }

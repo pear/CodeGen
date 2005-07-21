@@ -33,31 +33,31 @@
  */
 class CodeGen_License_PHP extends CodeGen_License 
 {
-	/**
-	 * short name 
-	 *
-	 * @access public 
-	 * @var    string
-	 */
-	var $shortname = 'PHP';
+    /**
+     * short name 
+     *
+     * @access public 
+     * @var    string
+     */
+    var $shortname = 'PHP';
 
-	/**
-	 * full name 
-	 *
-	 * @access public 
-	 * @var    string
-	 */
-	var $longname = 'The PHP License';
+    /**
+     * full name 
+     *
+     * @access public 
+     * @var    string
+     */
+    var $longname = 'The PHP License';
 
-	/**
-	 * License comment to include in code files
-	 *
-	 * @access public 
-	 * @return string comment text
-	 */
-	function getComment() 
-	{
-		return <<<EOD
+    /**
+     * License comment to include in code files
+     *
+     * @access public 
+     * @return string comment text
+     */
+    function getComment() 
+    {
+        return <<<EOD
    | This source file is subject to version 3.0 of the PHP license,       |
    | that is bundled with this package in the file LICENSE, and is        |
    | available through the world-wide-web at the following url:           |
@@ -67,17 +67,17 @@ class CodeGen_License_PHP extends CodeGen_License
    | license@php.net so we can mail you a copy immediately.               |
 
 EOD;
-	}
+    }
 
-	/**
-	 * Complete License Text
-	 *
-	 * @access public
-	 * @return string license text
-	 */
-	function getText() 
+    /**
+     * Complete License Text
+     *
+     * @access public
+     * @return string license text
+     */
+    function getText() 
     {
-		return <<<EOD
+        return <<<EOD
 -------------------------------------------------------------------- 
                   The PHP License, Version 3.0
 Copyright (c) 1999 - 2003 The PHP Group. All rights reserved.
@@ -148,7 +148,7 @@ This product includes the Zend Engine, freely available at
 <http://www.zend.com>.
 
 EOD;
-	}
+    }
 }
 
 ?>

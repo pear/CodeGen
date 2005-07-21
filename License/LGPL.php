@@ -33,21 +33,21 @@
  */
 class CodeGen_License_LGPL extends CodeGen_License 
 {
-	/**
-	 * short name 
-	 *
-	 * @access public 
-	 * @var    string
-	 */
-	var $shortname = 'LGPL';
+    /**
+     * short name 
+     *
+     * @access public 
+     * @var    string
+     */
+    var $shortname = 'LGPL';
 
-	/**
-	 * full name 
-	 *
-	 * @access public 
-	 * @var    string
-	 */
-	var $longname = 'GNU Lesser General Public License';
+    /**
+     * full name 
+     *
+     * @access public 
+     * @var    string
+     */
+    var $longname = 'GNU Lesser General Public License';
 
     /**
      * License comment to include in code files

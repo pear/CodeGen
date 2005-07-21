@@ -117,21 +117,21 @@
          */
         var $fp = null;
 
-		/**
-		 * Verbatim indicator
-		 *
-		 * @access public
-		 * @var    string
-		 */
-		var $verbatim = false;
+        /**
+         * Verbatim indicator
+         *
+         * @access public
+         * @var    string
+         */
+        var $verbatim = false;
 
-		/**
-		 * Verbatim taglevel depth
-		 *
-		 * @access public
-		 * @var string
-		 */
-		var $verbatimDepth = 0;
+        /**
+         * Verbatim taglevel depth
+         *
+         * @access public
+         * @var string
+         */
+        var $verbatimDepth = 0;
 
         /**
          * The constructor 
@@ -235,15 +235,15 @@
             return true;
         }
 
-		/**
-		 * Start verbatim mode
-		 *
-		 */
-		function verbatim()
-		{
-			$this->verbatim = true;
-			$this->verbatimDepth = 1;
-		}
+        /**
+         * Start verbatim mode
+         *
+         */
+        function verbatim()
+        {
+            $this->verbatim = true;
+            $this->verbatimDepth = 1;
+        }
 
         /**
          * Try to find best matching tag handler for current tag nesting
@@ -304,15 +304,15 @@
                 }
             }
 
-			if ($this->verbatim) {
-				$this->verbatimDepth++;
-				$this->data .= "<$tag";
-				foreach ($attr as $key => $value) {
-					$this->data .= " $key='$value'";
-				}
-				$this->data .= ">";
-				return;
-			}
+            if ($this->verbatim) {
+                $this->verbatimDepth++;
+                $this->data .= "<$tag";
+                foreach ($attr as $key => $value) {
+                    $this->data .= " $key='$value'";
+                }
+                $this->data .= ">";
+                return;
+            }
 
             $this->data = "";
             $this->dataLine = 0;
@@ -353,14 +353,14 @@
                 return;
             }
 
-			if ($this->verbatim) {
-				if (--$this->verbatimDepth > 0) {
-					$this->data .= "</$tag>";
-					return;
-				} else { 
-					$this->verbatim = false;
-				}				
-			}
+            if ($this->verbatim) {
+                if (--$this->verbatimDepth > 0) {
+                    $this->data .= "</$tag>";
+                    return;
+                } else { 
+                    $this->verbatim = false;
+                }               
+            }
 
             $method = $this->findHandler("tagend");
             array_pop($this->tagStack);

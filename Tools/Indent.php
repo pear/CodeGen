@@ -73,14 +73,14 @@ class CodeGen_Tools_Indent {
         );
     }
 
-	/**
-	 * re-indent a block of text
-	 *
-	 * @access public
-	 * @param  int    number of leading indent spaces
-	 * @param  string text to reindent
-	 * @return string indented text
-	 */
+    /**
+     * re-indent a block of text
+     *
+     * @access public
+     * @param  int    number of leading indent spaces
+     * @param  string text to reindent
+     * @return string indented text
+     */
     function indent($level, $text) 
     {
         $lines = explode("\n", $text);
@@ -113,7 +113,7 @@ class CodeGen_Tools_Indent {
      * @access public
      * @param  string  text
      * @return string  trimmed text
-	 */
+     */
     function linetrim($text)
     {
         $text = preg_replace('|^\s*\n|','', $text);

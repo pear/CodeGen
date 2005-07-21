@@ -34,21 +34,21 @@
 class CodeGen_License_BSD 
     extends CodeGen_License 
 {
-	/**
-	 * short name 
-	 *
-	 * @access public 
-	 * @var    string
-	 */
-	var $shortname = 'BSD';
+    /**
+     * short name 
+     *
+     * @access public 
+     * @var    string
+     */
+    var $shortname = 'BSD';
 
-	/**
-	 * full name 
-	 *
-	 * @access public 
-	 * @var    string
-	 */
-	var $longname = 'BSD style license';
+    /**
+     * full name 
+     *
+     * @access public 
+     * @var    string
+     */
+    var $longname = 'BSD style license';
 
     /**
      * License comment to include in code files
