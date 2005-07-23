@@ -35,26 +35,28 @@ testing only
     </deps>
 
     <filelist>
-      <dir name="/" baseinstalldir="CodeGen">
-        <file role="php">Extension.php</file>
-        <file role="php">XmlParser.php</file>
-        <file role="php">ExtensionParser.php</file>
-        <file role="php">Element.php</file>
-        <file role="php">Release.php</file>
-        <file role="php">Maintainer.php</file>
-        <file role="php">License.php</file>
-        <dir name="License">
-          <file role="php">PHP.php</file>
-          <file role="php">BSD.php</file>
-          <file role="php">LGPL.php</file>
-        </dir>
-        <file role="php">Command.php</file>
-        <dir name="Tools">
-          <file role="php">Code.php</file>
-          <file role="php">Getopt.php</file>
-          <file role="php">Platform.php</file>
-          <file role="php">Indent.php</file>
-          <file role="php">Tokenizer.php</file>
+      <dir name="/" baseinstalldir="/">
+        <dir name="CodeGen">
+          <file role="php">Extension.php</file>
+          <file role="php">XmlParser.php</file>
+          <file role="php">ExtensionParser.php</file>
+          <file role="php">Element.php</file>
+          <file role="php">Release.php</file>
+          <file role="php">Maintainer.php</file>
+          <file role="php">License.php</file>
+          <dir name="License">
+            <file role="php">PHP.php</file>
+            <file role="php">BSD.php</file>
+            <file role="php">LGPL.php</file>
+          </dir>
+          <file role="php">Command.php</file>
+          <dir name="Tools">
+            <file role="php">Code.php</file>
+            <file role="php">Getopt.php</file>
+            <file role="php">Platform.php</file>
+            <file role="php">Indent.php</file>
+            <file role="php">Tokenizer.php</file>
+            </dir>
         </dir>
       </dir>
     </filelist>
