@@ -53,6 +53,7 @@ testing only
           <dir name="Tools">
             <file role="php">Code.php</file>
             <file role="php">Getopt.php</file>
+            <file role="php">Outbuf.php</file>
             <file role="php">Platform.php</file>
             <file role="php">Indent.php</file>
             <file role="php">Tokenizer.php</file>
