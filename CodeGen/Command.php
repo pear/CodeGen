@@ -232,7 +232,7 @@ class CodeGen_Command
         }
         
         if (!$this->options->have("q", "quiet")) {
-            echo $this->extension->successMsg($this->extension->name);
+            echo $this->extension->successMsg($this->extension->getName());
         }
         
     }
