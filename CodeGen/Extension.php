@@ -27,6 +27,7 @@ require_once "CodeGen/License.php";
 require_once "CodeGen/Release.php";
 require_once "CodeGen/Tools/Platform.php";
 require_once "CodeGen/Tools/Indent.php";
+require_once "CodeGen/Tools/Outbuf.php";
 
 /**
  * Extension generator class
@@ -46,7 +47,7 @@ abstract class CodeGen_Extension
      *
      * @var string
      */
-    var $name = "unknown";
+    protected $name = "unknown";
     
 
     /**
@@ -54,7 +55,7 @@ abstract class CodeGen_Extension
      *
      * @var string
      */
-    var $summary = "The unknown extension";
+    protected $summary = "The unknown extension";
     
     /**
      * extension description
@@ -62,21 +63,21 @@ abstract class CodeGen_Extension
      * @var    string
      * @access private
      */
-    var $description;
+    protected $description;
 
     /** 
      * The license for this extension
      *
      * @var object
      */
-    var $license  = NULL;
+    protected $license  = NULL;
     
     /** 
      * The release info for this extension
      *
      * @var object
      */
-    var $release  = NULL;
+    protected $release  = NULL;
         
     /** 
      * The implementation language
@@ -85,7 +86,7 @@ abstract class CodeGen_Extension
      *
      * @var string
      */
-    var $language  = "c";
+    protected $language  = "c";
     
     /**
      * The target platform for this extension
@@ -94,7 +95,7 @@ abstract class CodeGen_Extension
      * 
      * @var string
      */
-    var $platform = null;
+    protected $platform = null;
     
     
     /**
@@ -102,7 +103,7 @@ abstract class CodeGen_Extension
      *
      * @var array
      */
-    var $authors = array();
+    protected $authors = array();
     
     
     /**
@@ -110,7 +111,7 @@ abstract class CodeGen_Extension
      * 
      * @var string
      */
-    var $prefix = "";
+    protected $prefix = "";
 
 
     /**
@@ -127,6 +128,16 @@ abstract class CodeGen_Extension
         
         $this->name = $name;
         return true;
+    }
+
+    /**
+     * Get extension base name
+     *
+     * @return string
+     */
+    function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -178,6 +189,16 @@ abstract class CodeGen_Extension
     }
 
     /**
+     * Get programming language
+     *
+     * @return string
+     */
+    function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
      * Set target platform for generated code
      *
      * @access public
@@ -205,7 +226,7 @@ abstract class CodeGen_Extension
             return PEAR::raiseError("argument is not CodeGen_Maintainer");
         }
         
-        $this->authors[$author->user] = $author;
+        $this->authors[$author->getUser()] = $author;
         
         return true;
     }
@@ -258,6 +279,15 @@ abstract class CodeGen_Extension
         return true;
     }
 
+    /**
+     * Get extension name prefix
+     *
+     * @return string
+     */
+    function getPrefix()
+    {
+        return $this->prefix;
+    }
 }
 
 ?>

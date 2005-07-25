@@ -41,7 +41,7 @@ class CodeGen_Release
      * @access private
      * @var     string
      */
-    var $version = "0.0.1";
+    protected $version = "0.0.1";
     
     /**
      * Set method for version number
@@ -58,6 +58,16 @@ class CodeGen_Release
         return true;
     }
     
+    /**
+     * version getter
+     *
+     * @access public
+     * @return string
+     */
+    function getVersion()
+    {
+        return $this->version;
+    }
 
 
 
@@ -67,7 +77,7 @@ class CodeGen_Release
      * @access private
      * @var     string
      */
-    var $date = "";
+    protected $date = "";
     
     /**
      * Set method for release date
@@ -86,6 +96,17 @@ class CodeGen_Release
     }
     
 
+    /**
+     * date getter
+     *
+     * @access public
+     * @return int 
+     */
+    function getDate()
+    {
+        return $this->date;
+    }
+
 
 
 
@@ -96,7 +117,7 @@ class CodeGen_Release
      * @access private
      * @var     string
      */
-    var $state = "unknown";
+    protected $state = "unknown";
     
     /**
      * Set method for state
@@ -112,6 +133,18 @@ class CodeGen_Release
         
         return true;
     }
+
+    /**
+     * state getter
+     *
+     * @access public
+     * @return string
+     */
+    function getState()
+    {
+        return $this->state;
+    }
+
 
 
 
@@ -139,6 +172,17 @@ class CodeGen_Release
         return true;
     }
     
+    /**
+     * notes getter
+     *
+     * @access public
+     * @return string
+     */
+    function getNotes()
+    {
+        return $this->notes;
+    }
+
     
 
 

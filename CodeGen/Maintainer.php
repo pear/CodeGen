@@ -40,42 +40,42 @@ class CodeGen_Maintainer
      *
      * @var string
      */
-    var $user;
+    protected $user;
 
     /**
      * Real name
      *
      * @var string
      */
-    var $name;
+    protected $name;
 
     /**
      * Email address
      *
      * @var string
      */
-    var $email;
+    protected $email;
 
     /**
      * Role in this project
      *
      * @var string
      */
-     var $role;
+     protected $role;
      
     /**
      * First maintainer added?
      *
      * @var bool
      */
-     static $first = true;
+     protected static $first = true;
 
     /**
      * Prefix to use in comment headers
      *
      * @var bool
      */
-    var  $comment_prefix = "Authors:";
+    protected $comment_prefix = "Authors:";
 
     /**
      * Constructor
@@ -118,6 +118,17 @@ class CodeGen_Maintainer
      }
 
      /**
+      * CVS user getter
+      * 
+      * @access public
+      * @return string
+      */
+     function getUser()
+     {
+         return $this->user;
+     }
+
+     /**
       * Set real user name
       *
       * @access public
@@ -129,6 +140,18 @@ class CodeGen_Maintainer
          $this->name = $name;
          return true;
      }
+
+     /**
+      * real name getter
+      * 
+      * @access public
+      * @return string
+      */
+     function getName()
+     {
+         return $this->name;
+     }
+
 
      /**
       * Set email address
