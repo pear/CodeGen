@@ -477,6 +477,38 @@
             }
         }
 
+        
+        /**
+         * accept various truth values
+         *
+         * @access public
+         * @param  mixed
+         * @return bool
+         */
+        function toBool($arg)
+        {
+            if (is_bool($arg)) {
+                return $arg;
+            }
+
+            if (is_numeric($arg)) {
+                return ($arg != 0);
+            }
+
+            if (is_string($arg)) {
+                switch (strtolower($arg)) {
+                case 'on':
+                case 'yes':
+                case 'true':
+                    return true;
+                default:
+                    return false;
+                }
+            }
+                
+            return false;
+        }
+
     }
 
 ?>
