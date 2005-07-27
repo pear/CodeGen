@@ -88,7 +88,10 @@ class CodeGen_Release
      */
     function setDate($date)
     {
-        // TODO parse date if not numeric
+        if (!is_numeric($date)) {
+            $date = strtotime($date);
+        }
+
         // TODO check valid dates
         $this->date = $date;
         
@@ -194,7 +197,7 @@ class CodeGen_Release
      */
     function __construct()
     {
-        $this->date = date("Y-m-d");
+        $this->date = time();
     }
 
 }
