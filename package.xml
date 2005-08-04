@@ -22,9 +22,9 @@ testing only
   <license>PHP</license>
 
   <release>
-    <state>alpha</state>
-    <version>0.1</version>
-    <date>2005-06-18</date>
+    <state>beta</state>
+    <version>0.9.0rc1</version>
+    <date>2005-08-03</date>
     <notes>
 testing only
     </notes>
