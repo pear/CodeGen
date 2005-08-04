@@ -202,7 +202,8 @@
          * @access public
          * @param string
          */
-        function setInputFile($filename) {
+        function setInputFile($filename) 
+        {
             $this->filename = $filename;
             
             $this->fp = @fopen($filename, "r");
