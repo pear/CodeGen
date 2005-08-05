@@ -285,9 +285,6 @@
             $ns  = $pos ? substr($fulltag, 0, $pos)  : "";
             $tag = $pos ? substr($fulltag, $pos + 1) : $fulltag;
 
-            array_push($this->tagStack,  $tag);
-            array_push($this->attrStack, $attr);
-
             // XInclude handling
             if ($ns === "http://www.w3.org/2001/XInclude") {
                 // TODO better error checking
@@ -295,7 +292,7 @@
 
                 if ($tag === "include") {
                     if (isset($attr["parse"]) && $attr["parse"] == "text") {
-                        $this-cDataHandler($XmlParser, get_file_contents($path));
+                        $this->cDataHandler($XmlParser, file_get_contents($path));
                     } else {
                         $this->pushParser();
                         $this->parser = $this->newParser();
@@ -306,10 +303,15 @@
                         }
                         $this->parse();
                         $this->popParser();
-                        return;
                     }
                 }
+                
+                return;
             }
+
+            // this *has* to be done *after* XInclude processing !!!
+            array_push($this->tagStack,  $tag);
+            array_push($this->attrStack, $attr);
 
             if ($this->verbatim) {
                 $this->verbatimDepth++;
@@ -353,15 +355,16 @@
             $ns  = $pos ? substr($fulltag, 0, $pos)  : "";
             $tag = $pos ? substr($fulltag, $pos + 1) : $fulltag;
 
-            $method = $this->findHandler("tagend");
-
-            $oldtag = array_pop($this->tagStack);
-            $attr   = array_pop($this->attrStack);
-
             // XInclude handling
             if ($ns === "http://www.w3.org/2001/XInclude") {
                 return;
             }
+
+            // this *has* to be done *before* popping the tag stack!!!
+            $method = $this->findHandler("tagend");
+
+            $oldtag = array_pop($this->tagStack);
+            $attr   = array_pop($this->attrStack);
 
             if ($this->verbatim) {
                 if (--$this->verbatimDepth > 0) {
