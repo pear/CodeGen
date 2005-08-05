@@ -228,7 +228,10 @@
 
 
             while (($data = fread($this->fp, 4096))) {
-                if (!xml_parse($this->parser, $data, feof($this->fp)) || $this->error) {
+                if (!xml_parse($this->parser, $data, feof($this->fp))) {
+                    $this->error = PEAR::RaiseError(xml_error_string(xml_get_error_code($this->parser))." ".$this->posString());
+                }
+                if ($this->error) {
                     return $this->error;
                 }
             }
@@ -273,14 +276,17 @@
          * @param  resource internal parser handle
          * @param  string   tag name
          * @param  array    tag attributes         */
-        function startHandler($XmlParser, $tag, $attr)
+        function startHandler($XmlParser, $fulltag, $attr)
         {
             if ($this->error) return;
 
-            $pos = strrpos($tag, " ");
+            $pos = strrpos($fulltag, " ");
             
-            $ns  = $pos ? substr($tag, 0, $pos)  : "";
-            $tag = $pos ? substr($tag, $pos + 1) : $tag;
+            $ns  = $pos ? substr($fulltag, 0, $pos)  : "";
+            $tag = $pos ? substr($fulltag, $pos + 1) : $fulltag;
+
+            array_push($this->tagStack, $fulltag);
+            array_push($this->attrStack, $attr);
 
             // XInclude handling
             if ($ns === "http://www.w3.org/2001/XInclude") {
@@ -317,8 +323,6 @@
 
             $this->data = "";
             $this->dataLine = 0;
-            array_push($this->tagStack, $tag);
-            array_push($this->attrStack, $attr);
 
             $method = $this->findHandler("tagstart");
             if ($method) {
@@ -340,14 +344,17 @@
          * @param  resource internal parser handle
          * @param  string   tag name
          */
-        function endHandler($XmlParser, $tag)
+        function endHandler($XmlParser, $fulltag)
         {
             if ($this->error) return;
 
-            $pos = strrpos($tag, " ");
+            $oldtag = array_pop($this->tagStack);
+            $attr   = array_pop($this->attrStack);
+
+            $pos = strrpos($fulltag, " ");
             
-            $ns  = $pos ? substr($tag, 0, $pos)  : "";
-            $tag = $pos ? substr($tag, $pos + 1) : $tag;
+            $ns  = $pos ? substr($fulltag, 0, $pos)  : "";
+            $tag = $pos ? substr($fulltag, $pos + 1) : $fulltag;
 
             // XInclude handling
             if ($ns === "http://www.w3.org/2001/XInclude") {
@@ -364,8 +371,6 @@
             }
 
             $method = $this->findHandler("tagend");
-            array_pop($this->tagStack);
-            $attr = array_pop($this->attrStack);
             if ($method) {
                 $err = $this->$method($attr, $this->data, $this->dataLine, $this->filename);
                 if (PEAR::isError($err)) {
