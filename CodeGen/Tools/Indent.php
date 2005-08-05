@@ -102,8 +102,8 @@ class CodeGen_Tools_Indent {
         foreach ($lines as $line) {
             $result.= self::tabify(ereg_replace("^$find", $replace, $line)."\n", 4);
         }
-
-        return $result;
+        
+        return self::linetrim($result);
     }
 
 
