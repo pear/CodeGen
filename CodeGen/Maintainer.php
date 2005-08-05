@@ -61,7 +61,7 @@ class CodeGen_Maintainer
      *
      * @var string
      */
-     protected $role;
+     protected $role = "developer";
      
     /**
      * First maintainer added?
@@ -177,10 +177,16 @@ class CodeGen_Maintainer
       */
      function setRole($role) 
      {
-         // TODO check for valid roles
-
-         $this->role = $role;
-         return true;
+         switch ($role) {
+             case "lead": 
+             case "developer":
+             case "contributor":
+             case "helper":
+                 $this->role = $role;
+                 return true;
+           default:
+             return PEAR::raiseError("'$role' is not a valid maintainer role");
+         }
      }
 
      /**
