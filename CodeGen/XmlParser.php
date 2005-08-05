@@ -285,7 +285,7 @@
             $ns  = $pos ? substr($fulltag, 0, $pos)  : "";
             $tag = $pos ? substr($fulltag, $pos + 1) : $fulltag;
 
-            array_push($this->tagStack, $fulltag);
+            array_push($this->tagStack,  $tag);
             array_push($this->attrStack, $attr);
 
             // XInclude handling
@@ -348,13 +348,15 @@
         {
             if ($this->error) return;
 
-            $oldtag = array_pop($this->tagStack);
-            $attr   = array_pop($this->attrStack);
-
             $pos = strrpos($fulltag, " ");
             
             $ns  = $pos ? substr($fulltag, 0, $pos)  : "";
             $tag = $pos ? substr($fulltag, $pos + 1) : $fulltag;
+
+            $method = $this->findHandler("tagend");
+
+            $oldtag = array_pop($this->tagStack);
+            $attr   = array_pop($this->attrStack);
 
             // XInclude handling
             if ($ns === "http://www.w3.org/2001/XInclude") {
@@ -370,7 +372,6 @@
                 }               
             }
 
-            $method = $this->findHandler("tagend");
             if ($method) {
                 $err = $this->$method($attr, $this->data, $this->dataLine, $this->filename);
                 if (PEAR::isError($err)) {
