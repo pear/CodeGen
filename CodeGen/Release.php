@@ -115,12 +115,12 @@ class CodeGen_Release
 
 
     /**
-     * The 'state': alpha, beta, stable, dev ...
+     * The 'state': alpha, beta, stable, devel ...
      *
      * @access private
      * @var     string
      */
-    protected $state = "unknown";
+    protected $state = "devel";
     
     /**
      * Set method for state
@@ -131,10 +131,18 @@ class CodeGen_Release
      */
     function setState($state)
     {
-        // TODO check valid states
-        $this->state = $state;
-        
-        return true;
+        switch ($state) {
+            case "alpha":
+            case "beta":
+            case "stable":
+            case "snapshot":
+            case "devel":
+                $this->state = $state;
+                return true;
+
+            default:
+                return PEAR::raiseError("'$state' is not a valid release state'");
+        }
     }
 
     /**
