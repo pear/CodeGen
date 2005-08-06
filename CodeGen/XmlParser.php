@@ -292,7 +292,8 @@
 
                 if ($tag === "include") {
                     if (isset($attr["parse"]) && $attr["parse"] == "text") {
-                        $this->cDataHandler($XmlParser, file_get_contents($path));
+                        $data = file_get_contents($path);
+                        $this->cDataHandler($XmlParser, $data);
                     } else {
                         $this->pushParser();
                         $this->parser = $this->newParser();
@@ -519,6 +520,22 @@
             return false;
         }
 
+
+        /**
+         * Check attributes
+         *
+         * @param array  actual attribute/value pairs
+         * @param array allowed attribute names
+         */
+        function checkAttributes($attr, $names)
+        {
+            foreach ($attr as $key => $value) {
+                if (!in_array($key, $names)) {
+                    return PEAR::raiseError("'$key' is not a valid attribute for <".end($this->tagStack)."> ");
+                }
+            }
+            return true;
+        }
     }
 
 ?>

@@ -69,6 +69,11 @@ abstract class CodeGen_ExtensionParser
      */
     function tagstart_extension($attr)
     {
+        $err = $this->checkAttributes($attr, array("name", "prefix", "version"));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+                                      
         if (!isset($attr["name"])) {
             return PEAR::raiseError("needed attribute 'name' for <extension> not given");
         }
