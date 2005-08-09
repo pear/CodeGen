@@ -205,9 +205,14 @@ abstract class CodeGen_ExtensionParser
         return $err;
     }
 
+    function tagstart_extension_changelog($attr, $data) 
+    {
+        $this->verbatim();
+    }
+
     function tagend_extension_changelog($attr, $data) 
     {
-        return true;
+        return $this->extension->setChangelog(CodeGen_Tools_Indent::linetrim($data));
     }
 
         

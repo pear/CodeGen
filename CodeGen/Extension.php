@@ -115,6 +115,40 @@ abstract class CodeGen_Extension
 
 
     /**
+     * Release changelog
+     *
+     * @access private
+     * @var     string
+     */
+    var $changelog = "";
+
+
+    /**
+     * Set method for changelog
+     *
+     * @access public
+     * @param  string changelog
+     * @return bool   true on success
+     */
+    function setChangelog($changelog)
+    {
+        $this->changelog = $changelog;
+        
+        return true;
+    }
+    
+    /**
+     * changelog getter
+     *
+     * @access public
+     * @return string
+     */
+    function getChangelog()
+    {
+        return $this->changelog;
+    }
+
+    /**
      * Set extension base name
      *
      * @access public
