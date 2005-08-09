@@ -116,7 +116,7 @@ class CodeGen_Tools_Platform
      */
     function count()
     {
-        return count($this->platforms());
+        return count($this->platforms);
     }
 }
 
