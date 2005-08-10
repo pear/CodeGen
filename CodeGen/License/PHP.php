@@ -34,20 +34,25 @@
 class CodeGen_License_PHP extends CodeGen_License 
 {
     /**
-     * short name 
+     * Get short name 
      *
-     * @access public 
-     * @var    string
+     * @return string
      */
-    var $shortname = 'PHP';
+    function getShortName()
+    {
+        return 'PHP';
+    }
 
     /**
-     * full name 
+     * Get full name 
      *
-     * @access public 
-     * @var    string
+     * @return string
      */
-    var $longname = 'The PHP License';
+    function getName()
+    {
+        return 'The PHP License';
+    }
+
 
     /**
      * License comment to include in code files
@@ -148,6 +153,16 @@ This product includes the Zend Engine, freely available at
 <http://www.zend.com>.
 
 EOD;
+    }
+
+    /**
+     * Get License URI
+     *
+     * @return string
+     */
+    function getURI()
+    {
+        return "http://php.net/license";
     }
 }
 
