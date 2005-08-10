@@ -89,12 +89,20 @@ abstract class CodeGen_License
     }
     
     /**
-     * Returns a string suitable for insertion into comment headers
+     * Returns the full license name
      * 
-     * @return string    License comment
+     * @return string    License name
      * @access public
      */
-    abstract function getComment();
+    abstract function getName();
+
+    /**
+     * Returns the sort license name
+     * 
+     * @return string    License shortname
+     * @access public
+     */
+    abstract function getShortName();
 
     /**
      * Returns the complete license text as string
@@ -103,6 +111,17 @@ abstract class CodeGen_License
      * @access public
      */
     abstract function getText();
+
+    /** 
+     * Returns an URI that points to the license text or an online description
+     *
+     * @return string License URI
+     * @access public
+     */
+    function getUri()
+    {
+        return "";
+    }
 }
 
 /*
