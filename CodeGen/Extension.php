@@ -287,10 +287,6 @@ abstract class CodeGen_Extension
      */
     function setLicense($license)
     {
-        if ($license->shortname == "GPL") {
-            return PEAR::raiseError("The GPL is no valid choice for PHP extensions due to license incompatibilities");
-        }
-
         $this->license = $license;
 
         return true;
