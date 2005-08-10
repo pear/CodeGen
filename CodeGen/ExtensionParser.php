@@ -87,7 +87,7 @@ abstract class CodeGen_ExtensionParser
                 return PEAR::raiseError("This is ".get_class($this->extension)." ".$this->extension->version().", extension specification requires at least version $attr[version] ");
             }
         } else {
-            error_log("Warning: no 'version' attribute given for <extension>, assuming ".$this->version().", this may lead to compile errors if your spec file was created for an older version");
+            error_log("Warning: no 'version' attribute given for <extension>, assuming ".$this->extension->version().", this may lead to compile errors if your spec file was created for an older version");
         }
 
         return $status;
