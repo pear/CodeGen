@@ -90,12 +90,13 @@ class CodeGen_Command
      */
     function commandOptions()
     {
-        $shortOptions = "fd=hqx";
+        $shortOptions = "fd=hlqx";
 
         $longOptions = array( "help",
                               "dir=",
                               "experimental",
                               "force",
+                              "lint",
                               "quiet", 
                               "version", 
                               );
@@ -132,8 +133,9 @@ class CodeGen_Command
 
   -h|--help          this message
   -x|--experimental  enable experimental features
-  -f|--force         overwrite existing files/directories
   -d|--dir           output directory
+  -f|--force         overwrite existing files/directories
+  -l|--lint          check syntax only, don't create output
   --version          show version info
 ");
 
@@ -222,8 +224,12 @@ class CodeGen_Command
         if (PEAR::isError($err)) {
             $this->terminate($err->getMessage()." ".$err->getUserInfo());
         } else if(is_string($err)) {
-          $this->terminate("");
+          $this->terminate($err);
         }
+      
+        if ($this->options->have("f", "force")) {
+            return;
+        }  
         
         // and now create the actual extension from the collected specs
         $err = $this->extension->createExtension($this->options->value("d", "dir"), $this->options->have("f", "force"));
