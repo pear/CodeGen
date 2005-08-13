@@ -227,7 +227,7 @@ class CodeGen_Command
           $this->terminate($err);
         }
       
-        if ($this->options->have("f", "force")) {
+        if ($this->options->have("l", "lint")) {
             return;
         }  
         
