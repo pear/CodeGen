@@ -236,7 +236,9 @@
                 }
             }
 
-            return true;
+            $stat = $this->error ? $this->error : true;
+
+            return $stat;
         }
 
         /**
@@ -479,6 +481,10 @@
          */
         function popHelper()
         {
+            // TODO add optional expectedType parameter?
+
+            $oldHelper = $this->helper;
+
             $this->helper = array_pop($this->helperStack);
             if (count($this->helperStack)) {
                 end($this->helperStack);
@@ -486,6 +492,8 @@
             } else {
                 $this->helperPrev = false;
             }
+
+            return $oldHelper;
         }
 
         
