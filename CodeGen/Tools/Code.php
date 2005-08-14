@@ -20,6 +20,12 @@
  */
 
 /**
+ * includes
+ */
+
+require_once("CodeGen/Tools/Indent.php");
+
+/**
  * Wrapper class for code block generation
  *
  * all methods are actually static, the class is just needed for
@@ -35,15 +41,20 @@
  */
 
 
-/**
- */
-
-require_once("CodeGen/Tools/Indent.php");
-
 class CodeGen_Tools_Code {
-    var $language = 'c';
+    /**
+     * Programming language to generate code for
+     *
+     * @var string
+     */
+    protected $language = 'c';
 
-    var $indentSteps = 4;
+    /**
+     * Number of blanks to use for indent steps
+     *
+     * @var int 
+     */
+    protected $indentSteps = 4;
 
     /**
      * Generate simple indented codeblock

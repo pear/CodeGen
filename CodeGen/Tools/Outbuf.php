@@ -19,6 +19,9 @@
  * @link       http://pear.php.net/package/CodeGen
  */
 
+/**
+ * Includes
+ */
 require_once "CodeGen/Tools/Indent.php";
 require_once "CodeGen/Tools/FileReplacer.php";
 

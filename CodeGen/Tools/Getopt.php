@@ -19,6 +19,9 @@
  * @link       http://pear.php.net/package/CodeGen
  */
 
+/**
+ * includes
+ */
 require_once "Console/Getopt.php";
 
 /**
@@ -150,7 +153,7 @@ class CodeGen_Tools_Getopt
      *
      * @access public
      * @param  string $name
-     * @result string option value or true for options without argument
+     * @return string option value or true for options without argument
      */
     function value($name, $name2 = false)
     {

@@ -19,6 +19,9 @@
  * @link       http://pear.php.net/package/CodeGen
  */
 
+/**
+ * includes
+ */
 require_once("CodeGen/Tools/FileReplacer.php");
 
 /**

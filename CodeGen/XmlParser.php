@@ -214,7 +214,7 @@
         /**
          * Perform the actual parsing
          *
-         * @access public         * @return boolean true on success
+         * @return boolean true on success
          */
         function parse() 
         {
