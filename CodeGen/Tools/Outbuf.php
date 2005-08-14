@@ -20,6 +20,7 @@
  */
 
 require_once "CodeGen/Tools/Indent.php";
+require_once "CodeGen/Tools/FileReplacer.php";
 
 /**
  * Output buffer handling class
@@ -85,14 +86,13 @@ class CodeGen_Tools_Outbuf
      */
     function write()                                
     {
+        $stat = true;
+
         if ($this->path) 
         {
             $text = ob_get_clean();
             
-            $fp = fopen($this->path, "w");
-            if (!is_resource($fp)) {
-                return PEAR::raiseError("can't write to output file '{$this->path}");
-            }
+            $fp = new CodeGen_Tools_FileReplacer($this->path);
             
             if ($this->flags && self::OB_TABIFY) {
                 $text = CodeGen_Tools_Indent::tabify($text);
@@ -104,13 +104,13 @@ class CodeGen_Tools_Outbuf
                 $text = CodeGen_Tools_Indent::tabify($text);
             }
             
-            fputs($fp, $text);
-            fclose($fp);
+            $fp->puts($text);
+            $stat = $fp->close();
 
             $this->path = "";
         }
 
-        return true;
+        return $stat;
     }
 
     /**
@@ -122,3 +122,6 @@ class CodeGen_Tools_Outbuf
         $this->write();
     }
 }
+
+
+

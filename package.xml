@@ -59,6 +59,7 @@ so declared stable but not given an 1.0 version id yet
             <file role="php">Platform.php</file>
             <file role="php">Indent.php</file>
             <file role="php">Tokenizer.php</file>
+            <file role="php">FileReplacer.php</file>
             </dir>
         </dir>
       </dir>

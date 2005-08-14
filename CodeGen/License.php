@@ -19,6 +19,7 @@
  * @link       http://pear.php.net/package/CodeGen
  */
 
+require_once("CodeGen/Tools/FileReplacer.php");
 
 /**
  * Abstract base class for licenses
@@ -77,15 +78,11 @@ abstract class CodeGen_License
      */
     function writeToFile($path = "./LICENSE") 
     {
-        $fp = fopen($path, "w");
+        $fp = new CodeGen_Tools_FileReplacer($path);
 
-        if (is_resource($fp)) {
-            fputs($fp, $this->getText()); 
-            fclose($fp);
-            return true;
-        }
-
-        return false;
+        $fp->puts($this->getText()); 
+        
+        return $fp->close();
     }
     
     /**
