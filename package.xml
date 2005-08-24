@@ -33,6 +33,7 @@ so declared stable but not given an 1.0 version id yet
 
     <deps>
       <dep type="php" rel="ge" version="5"/> 
+      <dep type="pkg" rel="ge" version="1.3">PEAR</dep>
       <dep type="pkg" rel="ge" version="1.0">Console_Getopt</dep>
     </deps>
 
