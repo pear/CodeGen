@@ -50,11 +50,32 @@ class CodeGen_Tools_Code {
     protected $language = 'c';
 
     /**
+     * Setter for language property
+     *
+     * @param string
+     */
+    function setLanguage($language)
+    {
+        // TODO check?
+        $this->language = $language;
+    }
+
+    /**
      * Number of blanks to use for indent steps
      *
      * @var int 
      */
     protected $indentSteps = 4;
+
+    /**
+     * Setter for indentSteps property
+     *
+     * @param int
+     */
+    function setIntentSteps($indentSteps)
+    {
+        $this->indentSteps = $indentSteps;
+    }
 
     /**
      * Generate simple indented codeblock
