@@ -45,6 +45,20 @@ require_once "CodeGen/Tools/Outbuf.php";
 abstract class CodeGen_Extension 
 {
     /**
+    * Current version number
+    * 
+    * @return string
+    */
+    abstract static public function version();
+
+    /**
+    * Copyright message
+    *
+    * @return string
+    */
+    abstract static public function copyright();
+
+    /**
      * The extensions basename (C naming rules apply)
      *
      * @var string
