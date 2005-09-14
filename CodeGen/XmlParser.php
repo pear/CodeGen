@@ -187,11 +187,11 @@
             $this->pushParser();
             $this->parser = $this->newParser();
             $stat = $this->setInputFile($systemId);
-            if (!$stat) {
-                $this->popParser();
-                $this->error = PEAR::raiseError("Can't open XInclude file '$systemId' ".$this->posString());
+            if ($stat) {
+                $this->parse();
+            } else {
+                $this->error = PEAR::raiseError("Can't open system entity file '$systemId' ".$this->posString());
             }
-            $this->parse();
             $this->popParser();
             return;
         }
@@ -290,21 +290,25 @@
             // XInclude handling
             if ($ns === "http://www.w3.org/2001/XInclude") {
                 // TODO better error checking
-                $path = isset($attr['href']) ? $attr['href'] : $attr['http://www.w3.org/2001/XInclude href'];
-
                 if ($tag === "include") {
+                    $path = isset($attr['href']) ? $attr['href'] : $attr['http://www.w3.org/2001/XInclude href'];
+
                     if (isset($attr["parse"]) && $attr["parse"] == "text") {
-                        $data = file_get_contents($path);
-                        $this->cDataHandler($XmlParser, $data);
+                        if (is_readable($path)) {
+                            $data = file_get_contents($path);
+                            $this->cDataHandler($XmlParser, $data);
+                        } else {
+                            $this->error = PEAR::raiseError("Can't open XInclude file '$path' ".$this->posString());
+                        }
                     } else {
                         $this->pushParser();
                         $this->parser = $this->newParser();
                         $stat = $this->setInputFile($path);
-                        if (!$stat) {
-                            $this->popParser();
+                        if ($stat) {
+                            $this->parse();
+                        } else {
                             $this->error = PEAR::raiseError("Can't open XInclude file '$path' ".$this->posString());
                         }
-                        $this->parse();
                         $this->popParser();
                     }
                 }
