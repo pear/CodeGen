@@ -24,11 +24,10 @@ CodeGen_MySqlUDF (not released yet).
 
   <release>
     <state>beta</state>
-    <version>0.9.0</version>
-    <date>2005-08-11</date>
+    <version>1.0.0rc1</version>
+    <date>2005-09-22</date>
     <notes>
-not yet feature complete but usable and no known bugs,
-so declared stable but not given an 1.0 version id yet
+     preparing for first "stable" release
     </notes>
 
     <deps>
@@ -66,6 +65,24 @@ so declared stable but not given an 1.0 version id yet
       </dir>
     </filelist>
   </release>
+
+  <changelog>
+   <release>
+    <state>beta</state>
+    <version>0.9.0</version>
+    <date>2005-08-11</date>
+    <notes>
+not yet feature complete but usable and no known bugs,
+so declared stable but not given an 1.0 version id yet
+    </notes>
+
+    <deps>
+      <dep type="php" rel="ge" version="5"/> 
+      <dep type="pkg" rel="ge" version="1.3">PEAR</dep>
+      <dep type="pkg" rel="ge" version="1.0">Console_Getopt</dep>
+    </deps>
+   </release>
+  </changelog>
 
 </package>
 
