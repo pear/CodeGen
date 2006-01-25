@@ -53,21 +53,21 @@
          *
          * @var resource
          */
-        private $parser = NULL;
+        protected $parser = NULL;
 
         /**
          * Parser stack for <include> management
          *
          * @var array
          */
-        private $parserStack = array();
+        protected $parserStack = array();
 
         /**
          * We collect cData in here
          *
          * @var    string
          */
-        private $data = "";
+        protected $data = "";
 
         /**
          * We also try to remember where cData started
@@ -75,7 +75,7 @@
          * @access private
          * @var    int
          */
-        var $dataLine = 0;
+        protected $dataLine = 0;
 
         /** 
          * We maintain the current tag nesting structure here
@@ -83,7 +83,7 @@
          * @access private
          * @var    array
          */
-        var $tagStack = array();
+        protected $tagStack = array();
 
         /** 
          * We keep track of tag attributes so that we can also provide them to the end tag handlers
@@ -91,7 +91,7 @@
          * @access private
          * @var    array
          */
-        var $attrStack = array();
+        protected $attrStack = array();
 
         /**
          * There is no clean way to terminate parsing from within a handler ...
@@ -99,7 +99,7 @@
          * @access private
          * @var    bool
          */
-        var $error = false;
+        protected $error = false;
 
         /**
          * Input Filename
@@ -107,7 +107,7 @@
          * @access public
          * @var    string
          */
-        var $filename = false;
+        protected $filename = false;
 
         /**
          * Input stream
@@ -115,7 +115,7 @@
          * @access public
          * @var    resource
          */
-        var $fp = null;
+        protected $fp = null;
 
         /**
          * Verbatim indicator
@@ -123,7 +123,7 @@
          * @access public
          * @var    string
          */
-        var $verbatim = false;
+        protected $verbatim = false;
 
         /**
          * Verbatim taglevel depth
@@ -131,7 +131,7 @@
          * @access public
          * @var string
          */
-        var $verbatimDepth = 0;
+        protected $verbatimDepth = 0;
 
         /**
          * The constructor 
@@ -446,7 +446,7 @@
          * @access private
          * @var    array
          */
-        var $helperStack = array();
+        protected $helperStack = array();
 
         /**
          * The current helper (top of stack) 
@@ -454,7 +454,7 @@
          * @access private
          * @var    mixed
          */
-        var $helper = false;
+        protected $helper = false;
 
         /**
          * The previous helper (top-1 of stack) 
@@ -462,7 +462,7 @@
          * @access private
          * @var    mixed
          */
-        var $helperPrev = false;
+        protected $helperPrev = false;
         
         /**
          * Push something on the helper stack

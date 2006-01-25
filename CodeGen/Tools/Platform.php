@@ -38,7 +38,7 @@ class CodeGen_Tools_Platform
      * @access private
      * @var    array   the platform short names
      */
-    var $platforms = array();
+    protected $platforms = array();
 
     /**
      * Constructor gets a list of names or "all"

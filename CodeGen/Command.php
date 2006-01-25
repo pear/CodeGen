@@ -48,7 +48,7 @@ class CodeGen_Command
      *
      * @var object
      */
-    var $extension;
+    protected $extension;
 
     /**
      * Command constructor

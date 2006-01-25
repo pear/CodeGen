@@ -166,7 +166,7 @@ class CodeGen_Release
      * @access private
      * @var     string
      */
-    var $notes = "";
+    protected $notes = "";
 
 
     /**

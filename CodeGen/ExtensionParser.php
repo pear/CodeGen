@@ -46,7 +46,7 @@ abstract class CodeGen_ExtensionParser
      * @access private
      * @var    object
      */
-    var $extension;
+    protected $extension;
     
     /** 
      * Constructor
