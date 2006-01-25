@@ -136,8 +136,18 @@ abstract class CodeGen_Extension
      * @access private
      * @var     string
      */
-    var $changelog = "";
+    protected $changelog = "";
 
+    
+    /** 
+     * Basedir for all created files
+     *
+     * @access protected
+     * @var    string
+     */
+    protected $dirpath = ".";
+
+    // {{{ constructor
 
     /**
      * Set method for changelog
@@ -333,6 +343,21 @@ abstract class CodeGen_Extension
     function getPrefix()
     {
         return $this->prefix;
+    }
+
+    /**
+    * Describe next steps after successfull extension creation
+    *
+    * @access private
+    */
+    function successMsg()
+    {
+        $relpath = str_replace(getcwd(), '.', $this->dirpath);
+    
+        $msg = "\nYour extension has been created in directory $relpath.\n";
+        $msg.= "See $relpath/README and $relpath/INSTALL for further instructions.\n";
+
+        return $msg;
     }
 }
 
