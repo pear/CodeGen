@@ -103,9 +103,10 @@ abstract class CodeGen_Element
      * Generate C include file definitions for element
      *
      * @access  public
+     * @param  class Extension  extension we are owned by
      * @return  string C header code 
      */
-    function hCode() 
+    function hCode($extension) 
     {
         return "";
     }
