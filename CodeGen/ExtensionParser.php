@@ -90,12 +90,13 @@ abstract class CodeGen_ExtensionParser
         }
 
         if (isset($attr["version"])) {
-            $err = $this->setVersion();
+            $err = $this->extension->setVersion($attr["version"]);
             if (PEAR::isError($err)) {
                 return $err;
             }
         } else {
-            error_log("Warning: no 'version' attribute given for <extension>, assuming ".$this->extension->version().", this may lead to compile errors if your spec file was created for an older version");
+            error_log("Warning: no 'version' attribute given for <extension>, assuming ".$this->extension->version()."\n".
+                      "         this may lead to compile errors if your spec file was created for an older version");
         }
 
         return true;

@@ -145,7 +145,7 @@ abstract class CodeGen_Extension
      * @access protected
      * @var    string
      */
-    protected $dirpath = ".";
+    public $dirpath = ".";
 
     // {{{ constructor
 
@@ -384,19 +384,8 @@ abstract class CodeGen_Extension
      */
     function setVersion($version)
     {
-        if (!preg_match('^|\d+.\d+.\d+([a-zA-Z]*)(\d*)$|', $version, $matches)) {
+        if (!preg_match('/^\d+\.\d+\.\d+(alpha|beta|gamma|rc|pl)?\d*$/', $version)) {
             return PEAR::raiseError("'$version' is not a valid version number");
-        }
-        switch ($matches[1]) {
-        case "":
-        case "alpha":
-        case "beta":
-        case "gamma":
-        case "rc":
-        case "pl":
-            break;
-        default:
-            return PEAR::raiseError("'$version' is not a valid version number");            
         }
         
         if (version_compare($version, $this->version(), ">")) {
