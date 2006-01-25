@@ -77,20 +77,28 @@ abstract class CodeGen_ExtensionParser
         if (!isset($attr["name"])) {
             return PEAR::raiseError("needed attribute 'name' for <extension> not given");
         }
-        $status = $this->extension->setName(trim($attr["name"]));
-        if ($status === true && isset($attr["prefix"])) {
-            $status = $this->extension->setPrefix(trim($attr["prefix"]));
+        $err = $this->extension->setName(trim($attr["name"]));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+
+        if (isset($attr["prefix"])) {
+            $err = $this->extension->setPrefix(trim($attr["prefix"]));
+            if (PEAR::isError($err)) {
+                return $err;
+            }
         }
 
         if (isset($attr["version"])) {
-            if (version_compare($attr["version"], $this->extension->version(), ">")) {
-                return PEAR::raiseError("This is ".get_class($this->extension)." ".$this->extension->version().", extension specification requires at least version $attr[version] ");
+            $err = $this->setVersion();
+            if (PEAR::isError($err)) {
+                return $err;
             }
         } else {
             error_log("Warning: no 'version' attribute given for <extension>, assuming ".$this->extension->version().", this may lead to compile errors if your spec file was created for an older version");
         }
 
-        return $status;
+        return true;
     }
     
     /**

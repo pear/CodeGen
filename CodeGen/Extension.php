@@ -359,6 +359,67 @@ abstract class CodeGen_Extension
 
         return $msg;
     }
+
+    /**
+     * Version requested by input if any
+     *
+     * @var string
+     */
+    protected $version = "";
+
+    /**
+     * Get requested version
+     *
+     * @return  string
+     */
+    function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set requested version
+     *
+     * @param  string
+     */
+    function setVersion($version)
+    {
+        if (!preg_match('^|\d+.\d+.\d+([a-zA-Z]*)(\d*)$|', $version, $matches)) {
+            return PEAR::raiseError("'$version' is not a valid version number");
+        }
+        switch ($matches[1]) {
+        case "":
+        case "alpha":
+        case "beta":
+        case "gamma":
+        case "rc":
+        case "pl":
+            break;
+        default:
+            return PEAR::raiseError("'$version' is not a valid version number");            
+        }
+        
+        if (version_compare($version, $this->version(), ">")) {
+            return PEAR::raiseError("This is ".get_class($this)." ".$this->version().", input file requires at least version $version ");
+        }
+        
+        $this->version = $version;
+        return true;
+    }
+
+    /**
+     * Check requested version
+     *
+     * @param  string version
+     * @return bool
+     */
+    function haveVersion($version)
+    {
+        return version_compare(empty($this->version) ? $this->version() : $this->version, $version) >= 0;
+
+        return true; // 
+    }
+
 }
 
 ?>
