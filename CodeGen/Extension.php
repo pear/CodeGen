@@ -30,6 +30,8 @@ require_once "CodeGen/Tools/Platform.php";
 require_once "CodeGen/Tools/Indent.php";
 require_once "CodeGen/Tools/FileReplacer.php";
 require_once "CodeGen/Tools/Outbuf.php";
+require_once "CodeGen/Dependency/Lib.php";
+require_once "CodeGen/Dependency/Header.php";
 
 /**
  * Extension generator class
@@ -147,8 +149,59 @@ abstract class CodeGen_Extension
      */
     public $dirpath = ".";
 
+
+    /**
+     * External libraries
+     *
+     * @var    array
+     * @access private
+     */
+    protected $libs = array();
+
+    /**
+     * External header files
+     *
+     * @var    array
+     * @access private
+     */
+    protected $headers = array();
+
+    /**
+     * Code snippets
+     *
+     * @var array
+     */
+    protected $code = array();
+
+    /**
+     * The package files created by this extension
+     *
+     * @var array
+     */
+    protected $packageFiles = array();
+
+    /**
+     * Version requested by input if any
+     *
+     * @var string
+     */
+    protected $version = "";
+
     // {{{ constructor
 
+    /**
+     * The constructor
+     *
+     * @access public
+     */
+    function __construct() 
+    {
+        $this->release = new CodeGen_Release;
+        
+        $this->platform = new CodeGen_Tools_Platform("all");
+    }
+    
+    // }}} 
     /**
      * Set method for changelog
      *
@@ -345,6 +398,62 @@ abstract class CodeGen_Extension
         return $this->prefix;
     }
 
+    /** 
+     * Add verbatim code snippet to extension
+     *
+     * @access public
+     * @param  string  which file to put the code to
+     * @param  string  where in the file the code should be put
+     * @param  string  the actual code
+     */
+    function addCode($role, $position, $code)
+    {
+        if (!in_array($role, array("header", "code"))) {
+            return PEAR::raiseError("'$role' is not a valid custom code role");
+        }
+        if (!in_array($position, array("top", "bottom"))) {
+            return PEAR::raiseError("'$position' is not a valid custom code position");
+        }
+        $this->code[$role][$position][] = $code;
+    }
+
+
+    /**
+     * Add toplevel library dependancy 
+     *
+     * @var  string  library basename
+     */
+    function addLib(CodeGen_Dependency_Lib $lib) 
+    {
+        $name = $lib->getName();
+       
+        if (isset($this->libs[$name])) {
+            return PEAR::raiseError("library '{$name}' added twice");
+        }
+
+        $this->libs[$name] = $lib;
+
+        return true;
+    }
+
+    /**
+     * Add toplevel header file dependancy 
+     *
+     * @var  string  header filename
+     */
+    function addHeader(CodeGen_Dependency_Header $header) 
+    {
+        $name = $header->getName();
+       
+        if (isset($this->headers[$name])) {
+            return PEAR::raiseError("header '{$name}' added twice");
+        }
+
+        $this->headers[$name] = $header;
+
+        return true;
+    }
+
     /**
     * Describe next steps after successfull extension creation
     *
@@ -359,13 +468,6 @@ abstract class CodeGen_Extension
 
         return $msg;
     }
-
-    /**
-     * Version requested by input if any
-     *
-     * @var string
-     */
-    protected $version = "";
 
     /**
      * Get requested version
@@ -409,6 +511,25 @@ abstract class CodeGen_Extension
         return true; // 
     }
 
+    /**
+     * Add a package file by type and path
+     *
+     * @access  public
+     * @param   string  type
+     * @param   string  path
+     * @returns bool    success state
+     */
+    function addPackageFile($type, $path)
+    {
+        $basename = basename($path);
+
+        if (isset($this->packageFiles[$type][$basename])) {
+            return PEAR::raiseError("duplicate distribution file name '$basename'");
+        }
+
+        $this->packageFiles[$type][$basename] = $path;
+        return true;
+    }
 }
 
 ?>

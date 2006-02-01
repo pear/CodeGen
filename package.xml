@@ -60,7 +60,11 @@ CodeGen_MySqlUDF (not released yet).
             <file role="php">Indent.php</file>
             <file role="php">Tokenizer.php</file>
             <file role="php">FileReplacer.php</file>
-            </dir>
+          </dir>
+          <dir name="Dependency">
+            <file role="php">Lib.php</file>
+            <file role="php">Header.php</file>
+          </dir> 
         </dir>
       </dir>
     </filelist>
