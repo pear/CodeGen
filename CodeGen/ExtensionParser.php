@@ -250,6 +250,54 @@ abstract class CodeGen_ExtensionParser
     }
 
 
+    function tagstart_deps($attr)
+    {
+        if (isset($attr["platform"])) {
+            $err = $this->extension->setPlatform($attr["platform"]);
+            if (PEAR::isError($err)) {
+                return $err;
+            }
+        }
+
+        if (isset($attr["language"])) {
+            $err = $this->extension->setLanguage($attr["language"]);
+            if (PEAR::isError($err)) {
+                return $err;
+            }
+        }
+
+    }
+
+    function tagstart_deps_file($attr) 
+    {
+        if (!isset($attr['name'])) {
+            return PEAR::raiseError("name attribut for file missing");
+        }
+
+        return $this->extension->addSourceFile($attr['name']);
+    }
+        
+    function tagstart_deps_lib($attr)
+    {
+        $this->extension->libs[$attr['name']] = $attr;
+        if (isset($attr['platform'])) {
+            $platform = new CodeGen_Tools_Platform($attr["platform"]);
+        } else {
+            $platform = new CodeGen_Tools_Platform("all");
+        }
+
+        if (PEAR::isError($platform)) {
+            return $platform;
+        }
+
+        $this->extension->libs[$attr['name']]['platform'] = $platform;
+        return true;
+    }
+
+    function tagstart_deps_header($attr)
+    {
+        $this->extension->headers[$attr['name']] = $attr; 
+    }
 }
 
 
