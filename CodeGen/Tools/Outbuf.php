@@ -115,15 +115,6 @@ class CodeGen_Tools_Outbuf
 
         return $stat;
     }
-
-    /**
-     * Destructor -> write file
-     *
-     */
-    function __destruct() 
-    {
-        $this->write();
-    }
 }
 
 
