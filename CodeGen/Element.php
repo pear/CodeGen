@@ -112,18 +112,6 @@ abstract class CodeGen_Element
     }
 
     /**
-     * Generate Editor settings block for C source files
-     *
-     * @access public
-     * @return string Editor settings comment block
-    */
-    static function cCodeEditorSettings() 
-  {
-      return "";
-  }
-
-
-    /**
      * Generate documentation code for element
      *
      * @access  public
@@ -155,18 +143,6 @@ abstract class CodeGen_Element
      * @return string documentation fragment
      */
     static function docFooter($name) 
-    {
-        return "";
-    }
-
-    /**
-     * Generate Editor settings block for documentation files
-     *
-     * @access public
-     * @param  int    Directory nesting depth of target file (default: 3)
-     * @return string Editor settings comment block
-    */
-    static function docEditorSettings($level=3) 
     {
         return "";
     }

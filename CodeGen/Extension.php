@@ -702,6 +702,40 @@ Debug_TS
 
         return $file->write();
     }
+
+    /**
+     * Generate Editor settings block for C source files
+     *
+     * @access public
+     * @return string Editor settings comment block
+    */
+    function cCodeEditorSettings() 
+    {
+            return '
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * End:
+ * vim600: noet sw=4 ts=4 fdm=marker
+ * vim<600: noet sw=4 ts=4
+ */
+';
+     }
+
+    /**
+     * Generate Editor settings block for documentation files
+     *
+     * @access public
+     * @param  int    Directory nesting depth of target file (default: 3)
+     * @return string Editor settings comment block
+    */
+    static function docEditorSettings($level=3) 
+    {
+        return "";
+    }
 }
+
+
 
 ?>
