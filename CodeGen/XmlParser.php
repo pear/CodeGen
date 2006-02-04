@@ -143,7 +143,12 @@
             $this->parser = $this->newParser();
         }
 
-        function newParser()
+        /**
+         * Create a new SAX parser and associate it with this XmlParser instance
+         *
+         * @void
+         */
+        private function newParser()
         {
             $parser = @xml_parser_create_ns(null, ' ');
 
@@ -160,7 +165,12 @@
             return $parser;
         }
 
-        function pushParser()
+        /**
+         * Push current SAX parser instance to the parser stack
+         *
+         * @void
+         */
+        private function pushParser()
         {
             if ($this->parser) {
                 $entry = array($this->parser, $this->filename, $this->fp);    
@@ -168,14 +178,24 @@
             }
         }
 
+        /**
+         * Replace current SAX parser with one popped from the parser stack
+         *
+         * @void
+         */
         function popParser()
         {
             xml_parser_free($this->parser);
             list($this->parser, $this->filename, $this->fp) = array_pop($this->parserStack);
         }
 
-
-        function posString()
+        /**
+         * Generate current parse position as string for error messages
+         *
+         * @void
+         * @returns string
+         */
+        private function posString()
         {
              return "in {$this->filename} on line ".
                  xml_get_current_line_number($this->parser).
@@ -183,7 +203,12 @@
                  xml_get_current_column_number($this->parser);
         }
         
-        function extEntityHandler($parser, $openEntityNames, $base, $systemId, $publicId) {
+        /**
+         * Create a new SAX parser to parse an external entity reference
+         *
+         * @void
+         */
+        private function extEntityHandler($parser, $openEntityNames, $base, $systemId, $publicId) {
             $this->pushParser();
             $this->parser = $this->newParser();
             $stat = $this->setInputFile($systemId);
@@ -202,7 +227,7 @@
          * @access public
          * @param string
          */
-        function setInputFile($filename) 
+        public function setInputFile($filename) 
         {
             $this->filename = $filename;
             
@@ -216,7 +241,7 @@
          *
          * @return boolean true on success
          */
-        function parse() 
+        public function parse() 
         {
             if (!is_resource($this->parser)) {
                 return PEAR::raiseError("Can't create XML parser");
@@ -245,7 +270,7 @@
          * Start verbatim mode
          *
          */
-        function verbatim()
+        protected function verbatim()
         {
             $this->verbatim = true;
             $this->verbatimDepth = 1;
@@ -258,7 +283,7 @@
          * @param  string  handler method prefix
          * @return string  hndler method name or false if no handler found
          */
-        function findHandler($prefix)
+        private function findHandler($prefix)
         {
             for ($tags = $this->tagStack; count($tags); array_shift($tags)) {
                 $method = "{$prefix}_".join("_", $tags);
@@ -277,8 +302,9 @@
          * @access private
          * @param  resource internal parser handle
          * @param  string   tag name
-         * @param  array    tag attributes         */
-        function startHandler($XmlParser, $fulltag, $attr)
+         * @param  array    tag attributes         
+         */
+        private function startHandler($XmlParser, $fulltag, $attr)
         {
             if ($this->error) return;
 
@@ -353,7 +379,7 @@
          * @param  resource internal parser handle
          * @param  string   tag name
          */
-        function endHandler($XmlParser, $fulltag)
+        private function endHandler($XmlParser, $fulltag)
         {
             if ($this->error) return;
 
@@ -401,7 +427,7 @@
          * @param  resource internal parser handle
          * @param  string   cData to collect
          */
-        function cDataHandler($XmlParser, $data)
+        private function cDataHandler($XmlParser, $data)
         {
             $this->data.= $data;
             if (!$this->dataLine) {
@@ -417,7 +443,7 @@
          * @param  string   PI name
          * @param  string   PI content data
          */
-        function piHandler($XmlParser, $name, $data)
+        private function piHandler($XmlParser, $name, $data)
         {
             $methodName = $name."PiHandler";
 
@@ -435,7 +461,7 @@
          * @param  resource internal parser handle
          * @param  string   cData to collect
          */
-        function dataPiHandler($XmlParser, $data) 
+        private function dataPiHandler($XmlParser, $data) 
         {
             $this->cDataHandler($XmlParser, $data);
         }
@@ -470,7 +496,7 @@
          * @access private
          * @param mixed
          */
-        function pushHelper($helper)
+        protected function pushHelper($helper)
         {
             array_push($this->helperStack, $this->helper);
             $this->helperPrev = $this->helper;
@@ -483,7 +509,7 @@
          *
          * @access private
          */
-        function popHelper()
+        protected function popHelper()
         {
             // TODO add optional expectedType parameter?
 
@@ -508,7 +534,7 @@
          * @param  mixed
          * @return bool
          */
-        function toBool($arg)
+        protected function toBool($arg)
         {
             if (is_bool($arg)) {
                 return $arg;
@@ -536,13 +562,33 @@
         /**
          * Check attributes
          *
-         * @param array  actual attribute/value pairs
-         * @param array allowed attribute names
+         * @param array   actual attribute/value pairs
+         * @param array  optinal attribute names with default values
+         * @param array required attribute names
          */
-        function checkAttributes($attr, $names)
+        protected function checkAttributes(&$attr, $optional, $required = array())
         {
+            // check for missing required attributes
+            foreach ($required as $key) {
+              if (!isset($attr[$key])) {
+                return PEAR::raiseError("required attribute '$key' missing in <".end($this->tagStack)."> ");
+              }
+            }
+
+            // add defaults for missing optional arguments
+            foreach ($optional as $key => $value) {
+              if (is_numeric($key)) {
+                $key   = $value;
+                $value = null;
+              }
+              if (!isset($attr[$key])) {
+                $attr[$key] = $value;
+              }
+            }
+
+            // check for unknown attributes
             foreach ($attr as $key => $value) {
-                if (!in_array($key, $names)) {
+                if (!in_array($key, $required) && !in_array($key, $optional)) {
                     return PEAR::raiseError("'$key' is not a valid attribute for <".end($this->tagStack)."> ");
                 }
             }
