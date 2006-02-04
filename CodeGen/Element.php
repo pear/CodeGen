@@ -32,6 +32,79 @@
  */
 abstract class CodeGen_Element 
 {
+    /**
+     * The function name
+     *
+     * @var     string
+     */
+    protected $name  = "unknown";
+
+    /**
+     * Name setter
+     *
+     * @param  string  function name
+     * @return bool    success status
+     */
+    function setName($name) 
+    {
+        $this->name = $name;
+            
+        return true;
+    }
+
+
+    /**
+     * Name getter
+     *
+     * @return  string  function name
+     */
+    function getName() 
+    {
+        return $this->name;
+    }
+
+
+    /**
+     * A short description
+     *
+     * @var     string
+     */
+    protected $summary = "";
+
+    /**
+     * Summary setter
+     *
+     * @param  string  function summary
+     * @return bool    success status
+     */
+    function setSummary($text)
+    {
+        $this->summary = $text;
+        return true;
+    }
+
+
+
+
+    /**
+     * A long description
+     *
+     * @var     string
+     */
+    protected $description  = "";
+
+    /**
+     * Description setter
+     *
+     * @param  string  function description
+     * @return bool    success status
+     */
+    function setDescription($text)
+    {
+        $this->description = $text;
+        return true;
+    }
+
 
     /**
      * Checks whether a string is a reserved name
