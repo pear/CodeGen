@@ -206,6 +206,15 @@ abstract class CodeGen_Extension
     protected $configfragments = array("top"=>array(), "bottom"=>array());
 
 
+    /**
+     * acinclude fragments
+     *
+     * @var    array
+     * @access private
+     */
+    protected $acfragments = array("top"=>array(), "bottom"=>array());
+
+
 
     // {{{ constructor
 
@@ -628,6 +637,22 @@ abstract class CodeGen_Extension
             return PEAR::raiseError("'$position' is not a valid config snippet position");
         }
         $this->configfragments[$position][] = $text;
+        return true;
+    }
+
+
+    /**
+     * Add acinclude.m4 fragment
+     *
+     * @access public
+     * @param  string
+     */
+    function addAcIncludeFragment($text, $position="top")
+    {
+        if (!in_array($position, array("top", "bottom"))) {
+            return PEAR::raiseError("'$position' is not a valid config snippet position");
+        }
+        $this->acfragments[$position][] = $text;
         return true;
     }
             
