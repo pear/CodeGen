@@ -515,7 +515,7 @@ abstract class CodeGen_Extension
      */
     function setVersion($version)
     {
-        if (!preg_match('/^\d+\.\d+\.\d+(alpha|beta|gamma|rc|pl)?\d*$/', $version)) {
+        if (!preg_match('/^\d+\.\d+\.\d+(dev|alpha|beta|gamma|rc|pl)?\d*$/', $version)) {
             return PEAR::raiseError("'$version' is not a valid version number");
         }
         
