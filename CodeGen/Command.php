@@ -149,7 +149,7 @@ class CodeGen_Command
      */
     function terminate($msg)
     {
-        $stderr = @fopen("php://stderr/", "w");
+        $stderr = fopen("php://stderr", "w");
         if ($stderr) {
             fprintf($stderr, "%s\n", $msg);
             fclose($stderr);
