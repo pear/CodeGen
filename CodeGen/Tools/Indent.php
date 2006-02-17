@@ -83,24 +83,29 @@ class CodeGen_Tools_Indent {
      */
     function indent($level, $text) 
     {
+        // TODO: untabify?
+
         $lines = explode("\n", $text);
 
+        // remove trailing blank lines
         while (count($lines) && trim(end($lines)) == "") {
             array_pop($lines);
         }
 
-        $maxindent = 999;
+        // how far is this block intented right now?
+        $minIndent = 999;
         foreach ($lines as $line) {
-            if (trim($line)=="") continue;
-            ereg("^ *", $line, $matches);
-            $maxindent = min($maxindent, strlen($matches[0]));
+            if (trim($line)=="") continue; // ignore blank lines
+            if ($line{0} == '#') continue; // ignore preprocessor instructions
+            preg_match("|^ *|", $line, $matches); // detect leading blanks
+            $minIndent = min($minIndent, strlen($matches[0]));
         }
 
         $result = "";
-        $find = str_repeat(" ", $maxindent);
+        $find = str_repeat(" ", $minIndent);
         $replace = str_repeat(" ", $level);
         foreach ($lines as $line) {
-            $result.= self::tabify(ereg_replace("^$find", $replace, $line)."\n", 4);
+            $result.= self::tabify(preg_replace("|^$find|", $replace, $line)."\n", 4);
         }
         
         return self::linetrim($result);

@@ -225,6 +225,8 @@ abstract class CodeGen_Extension
      */
     function __construct() 
     {
+        set_locale("C"); // ASCII only
+
         $this->release = new CodeGen_Release;
         
         $this->platform = new CodeGen_Tools_Platform("all");
@@ -264,7 +266,7 @@ abstract class CodeGen_Extension
      */
     function setName($name) 
     {
-        if (!ereg("^[[:alpha:]_][[:alnum:]_]*$", $name)) {
+        if (!preg_match('|^[a-z_]\w*$|i', $name)) {
             return PEAR::raiseError("'$name' is not a valid extension name");
         }
         

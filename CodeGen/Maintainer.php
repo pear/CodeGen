@@ -109,7 +109,7 @@ class CodeGen_Maintainer
       */
      function setUser($name) 
      {
-         if (!ereg("^[[:alnum:]_-]+$", $name)) {
+         if (!preg_match('|^[\w-]+$|i', $name)) {
              return PEAR::raiseError("'$name' is not a valid CVS user name");
          }
 

@@ -129,7 +129,7 @@ abstract class CodeGen_Element
      */
     function isName($name) 
     {
-        if (ereg("^[[:alpha:]_][[:alnum:]_]*$",$name)) {
+        if (preg_match('|^[a-z_]\w*$|i',$name)) {
             // TODO reserved words
             return true;
         } 

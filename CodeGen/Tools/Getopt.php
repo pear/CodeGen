@@ -191,7 +191,7 @@ class CodeGen_Tools_Getopt
     {
         $names = array();
         foreach ($this->options [0] as $opt) {
-            $names[] = ereg_replace("^-*", "", $opt[0]);
+            $names[] = preg_replace("|^-*|", "", $opt[0]);
         }
 
         return $names;
