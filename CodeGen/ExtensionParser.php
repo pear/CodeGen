@@ -116,6 +116,18 @@ abstract class CodeGen_ExtensionParser
     
     
     /**
+     * Handle <extension><summary>
+     *
+     * @access private
+     * @param  array    attribute/value pairs
+     * @return bool     success status
+     */
+    function tagend_extension_summary($attr)
+    {
+        return $this->noAttributes($attr);
+    }
+
+    /**
      * Handle <extension></summary>
      *
      * @access private
@@ -128,6 +140,18 @@ abstract class CodeGen_ExtensionParser
         return $this->extension->setSummary(CodeGen_Tools_Indent::linetrim($data));
     }
     
+    /**
+     * Handle <extension><description>
+     *
+     * @access private
+     * @param  array    attribute/value pairs
+     * @return bool     success status
+     */
+    function tagend_extension_description($attr)
+    {
+        return $this->noAttributes($attr);
+    }
+
     /**
      * Handle <extension></description>
      *
@@ -148,22 +172,42 @@ abstract class CodeGen_ExtensionParser
     function tagstart_maintainer($attr)
     {
         $this->pushHelper(new CodeGen_Maintainer);
-        return true;
+        return $this->noAttributes($attr);;
     }
     
+    function tagstart_maintainer_user($attr)
+    {
+        return $this->noAttributes($attr);;
+    }
+
     function tagend_maintainer_user($attr, $data)
     {
         return $this->helper->setUser(trim($data));
     }
     
+    function tagstart_maintainer_name($attr)
+    {
+        return $this->noAttributes($attr);;
+    }
+
     function tagend_maintainer_name($attr, $data)
     {
         return $this->helper->setName(trim($data));
     }
 
+    function tagstart_maintainer_email($attr)
+    {
+        return $this->noAttributes($attr);;
+    }
+
     function tagend_maintainer_email($attr, $data)
     {
         return $this->helper->setEmail(trim($data));
+    }
+
+    function tagstart_maintainer_role($attr)
+    {
+        return $this->noAttributes($attr);;
     }
 
     function tagend_maintainer_role($attr, $data)
@@ -186,7 +230,12 @@ abstract class CodeGen_ExtensionParser
     function tagstart_extension_release($attr)
     {
         $this->pushHelper(new CodeGen_Release);
-        return true;
+        return $this->noAttributes($attr);;
+    }
+
+    function tagstart_release_version($attr)
+    {
+        return $this->noAttributes($attr);;
     }
 
     function tagend_release_version($attr, $data)
@@ -194,14 +243,29 @@ abstract class CodeGen_ExtensionParser
         return $this->helper->setVersion(trim($data));
     }
 
+    function tagstart_release_date($attr)
+    {
+        return $this->noAttributes($attr);;
+    }
+
     function tagend_release_date($attr, $data)
     {
         return $this->helper->setDate(trim($data));
     }
 
+    function tagstart_release_state($attr)
+    {
+        return $this->noAttributes($attr);;
+    }
+
     function tagend_release_state($attr, $data)
     {
         return $this->helper->setState(trim($data));
+    }
+
+    function tagstart_release_notes($attr)
+    {
+        return $this->noAttributes($attr);;
     }
 
     function tagend_release_notes($attr, $data)
@@ -219,6 +283,7 @@ abstract class CodeGen_ExtensionParser
     function tagstart_extension_changelog($attr, $data) 
     {
         $this->verbatim();
+        return $this->noAttributes($attr);;
     }
 
     function tagend_extension_changelog($attr, $data) 
@@ -239,6 +304,11 @@ abstract class CodeGen_ExtensionParser
     }
 
     function tagend_extension_code($attr, $data) {
+        $err = $this->checkAttributes($attr, array("role", "position"));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+                                      
         $role     = isset($attr["role"])     ? $attr["role"]     : "code";
         $position = isset($attr["position"]) ? $attr["position"] : "bottom";
 
@@ -252,6 +322,11 @@ abstract class CodeGen_ExtensionParser
 
     function tagstart_deps($attr)
     {
+        $err = $this->checkAttributes($attr, array("platform","language"));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+                                      
         if (isset($attr["platform"])) {
             $err = $this->extension->setPlatform($attr["platform"]);
             if (PEAR::isError($err)) {
@@ -270,6 +345,11 @@ abstract class CodeGen_ExtensionParser
 
     function tagstart_deps_file($attr) 
     {
+        $err = $this->checkAttributes($attr, array("name"));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+                                      
         if (!isset($attr['name'])) {
             return PEAR::raiseError("name attribut for file missing");
         }
@@ -279,6 +359,15 @@ abstract class CodeGen_ExtensionParser
         
     function tagstart_deps_lib($attr)
     {
+        $err = $this->checkAttributes($attr, array("name", "platform"));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+                                      
+        if (!isset($attr['name'])) {
+            return PEAR::raiseError("name attribut for lib missing");
+        }
+
         $this->extension->libs[$attr['name']] = $attr;
         if (isset($attr['platform'])) {
             $platform = new CodeGen_Tools_Platform($attr["platform"]);
@@ -296,6 +385,15 @@ abstract class CodeGen_ExtensionParser
 
     function tagstart_deps_header($attr)
     {
+        $err = $this->checkAttributes($attr, array("name", "prepend", "path"));
+        if (PEAR::isError($err)) {
+            return $err;
+        }
+                                      
+        if (!isset($attr['name'])) {
+            return PEAR::raiseError("name attribut for lib missing");
+        }
+
         $this->extension->headers[$attr['name']] = $attr; 
     }
 }
