@@ -122,7 +122,7 @@ abstract class CodeGen_ExtensionParser
      * @param  array    attribute/value pairs
      * @return bool     success status
      */
-    function tagend_extension_summary($attr)
+    function tagstart_extension_summary($attr)
     {
         return $this->noAttributes($attr);
     }
@@ -147,7 +147,7 @@ abstract class CodeGen_ExtensionParser
      * @param  array    attribute/value pairs
      * @return bool     success status
      */
-    function tagend_extension_description($attr)
+    function tagstart_extension_description($attr)
     {
         return $this->noAttributes($attr);
     }
@@ -359,7 +359,7 @@ abstract class CodeGen_ExtensionParser
         
     function tagstart_deps_lib($attr)
     {
-        $err = $this->checkAttributes($attr, array("name", "platform"));
+        $err = $this->checkAttributes($attr, array("name", "platform", "function"));
         if (PEAR::isError($err)) {
             return $err;
         }
