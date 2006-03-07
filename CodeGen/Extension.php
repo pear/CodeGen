@@ -574,44 +574,44 @@ abstract class CodeGen_Extension
 
         $filename = realpath($name);
 
-		if (!is_file($filename)) {
-		  return PEAR::raiseError("'$name' is not a valid file");
-		}
+        if (!is_file($filename)) {
+          return PEAR::raiseError("'$name' is not a valid file");
+        }
         
-		if (!is_readable($filename)) {
-		  return PEAR::raiseError("'$name' is not readable");
-		}
+        if (!is_readable($filename)) {
+          return PEAR::raiseError("'$name' is not readable");
+        }
         
-		$pathinfo = pathinfo($filename);
-		$ext = $pathinfo["extension"];
+        $pathinfo = pathinfo($filename);
+        $ext = $pathinfo["extension"];
 
-		switch ($ext) {
-		case 'c':
-		  $this->addConfigFragment("AC_PROG_CC");
-		  $this->addPackageFile('code', $filename);
-		  break;
-		case 'cpp':
-		case 'cxx':
-		case 'c++':
-		  $this->addConfigFragment("AC_PROG_CXX");
-		  $this->addConfigFragment("AC_LANG([C++])");
-		  $this->addPackageFile('code', $filename);
-		  break;
-		case 'l':
-		case 'flex':
-		  $this->addConfigFragment("AM_PROG_LEX");
-		  $this->addPackageFile('code', $filename);
-		  break;
-		case 'y':
-		case 'bison':
-		  $this->addConfigFragment("AM_PROG_YACC");
-		  $this->addPackageFile('code', $filename);
-		  break;
-		default:
-		  break;
-		}
-		
-		return $this->addPackageFile('copy', $filename);
+        switch ($ext) {
+        case 'c':
+          $this->addConfigFragment("AC_PROG_CC");
+          $this->addPackageFile('code', $filename);
+          break;
+        case 'cpp':
+        case 'cxx':
+        case 'c++':
+          $this->addConfigFragment("AC_PROG_CXX");
+          $this->addConfigFragment("AC_LANG([C++])");
+          $this->addPackageFile('code', $filename);
+          break;
+        case 'l':
+        case 'flex':
+          $this->addConfigFragment("AM_PROG_LEX");
+          $this->addPackageFile('code', $filename);
+          break;
+        case 'y':
+        case 'bison':
+          $this->addConfigFragment("AM_PROG_YACC");
+          $this->addPackageFile('code', $filename);
+          break;
+        default:
+          break;
+        }
+        
+        return $this->addPackageFile('copy', $filename);
     }
 
     /**
