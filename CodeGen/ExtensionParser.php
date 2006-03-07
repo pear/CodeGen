@@ -345,7 +345,7 @@ abstract class CodeGen_ExtensionParser
 
     function tagstart_deps_file($attr) 
     {
-        $err = $this->checkAttributes($attr, array("name"));
+        $err = $this->checkAttributes($attr, array("name", "dir"));
         if (PEAR::isError($err)) {
             return $err;
         }
@@ -354,7 +354,11 @@ abstract class CodeGen_ExtensionParser
             return PEAR::raiseError("name attribut for file missing");
         }
 
-        return $this->extension->addSourceFile($attr['name']);
+        if (isset($attr["dir"])) {
+            return $this->extension->addSourceFile($attr['name'], $attr['dir']);
+        } else {
+            return $this->extension->addSourceFile($attr['name']);
+        }
     }
         
     function tagstart_deps_lib($attr)

@@ -548,17 +548,24 @@ abstract class CodeGen_Extension
      * @access  public
      * @param   string  type
      * @param   string  path
+     * @param   string  optional target dir
      * @returns bool    success state
      */
-    function addPackageFile($type, $path)
+    function addPackageFile($type, $path, $dir = "")
     {
-        $basename = basename($path);
-
-        if (isset($this->packageFiles[$type][$basename])) {
-            return PEAR::raiseError("duplicate distribution file name '$basename'");
+        $targetpath = basename($path);
+        if ($dir) {
+            if ($dir{0} == "/") {
+                return PEAR::raiseError("only relative pathes are allowed as target dir");
+            }
+            $targetpath = $dir."/".$targetpath;
         }
 
-        $this->packageFiles[$type][$basename] = $path;
+        if (isset($this->packageFiles[$type][$targetpath])) {
+            return PEAR::raiseError("duplicate distribution file name '$targetpath'");
+        }
+
+        $this->packageFiles[$type][$targetpath] = $path;
         return true;
     }
 
@@ -567,8 +574,9 @@ abstract class CodeGen_Extension
      *
      * @access public
      * @param  string path
+     * @param  string optional target dir
      */
-    function addSourceFile($name) 
+    function addSourceFile($name, $dir="") 
     {
         // TODO catch errors returned from addPackageFile
 
@@ -611,7 +619,7 @@ abstract class CodeGen_Extension
           break;
         }
         
-        return $this->addPackageFile('copy', $filename);
+        return $this->addPackageFile('copy', $filename, $dir);
     }
 
     /**
