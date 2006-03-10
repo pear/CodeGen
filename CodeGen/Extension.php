@@ -225,11 +225,14 @@ abstract class CodeGen_Extension
      */
     function __construct() 
     {
-        set_locale("C"); // ASCII only
+        setlocale(LC_ALL, "C"); // ASCII only
 
-        $this->release = new CodeGen_Release;
-        
-        $this->platform = new CodeGen_Tools_Platform("all");
+        if ($this->release == NULL) {
+            $this->release = new CodeGen_Release;
+        }
+        if ($this->platform == NULL) {
+            $this->platform = new CodeGen_Tools_Platform("all");
+        }
     }
     
     // }}} 
