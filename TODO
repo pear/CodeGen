@@ -21,3 +21,6 @@
 - use Console_Getargs instead of self extended Console_Getopt
   => still beta, not touched in a year, what is its stautus?
 
+- check the include stuff, has to be possible to have more than
+  one top level tag in included files
+
