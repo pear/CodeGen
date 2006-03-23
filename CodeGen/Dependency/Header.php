@@ -135,7 +135,8 @@ class CodeGen_Dependency_Header
     function configm4($extname, $withname)
     {
         $upname = strtoupper($extname);
-        return "  AC_CHECK_HEADER([\$PHP_{$upname}_DIR/{$this->path}/{$this->name}], [], AC_MSG_ERROR('{$this->name}' header not found))\n";
+        $withUpname = strtoupper($withname);
+        return "  AC_CHECK_HEADER([\$PHP_{$withUpname}_DIR/{$this->path}/{$this->name}], [], AC_MSG_ERROR('{$this->name}' header not found))\n";
     }
 }
 
