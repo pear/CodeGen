@@ -394,11 +394,18 @@ abstract class CodeGen_ExtensionParser
             return $err;
         }
                                       
-        if (!isset($attr['name'])) {
-            return PEAR::raiseError("name attribut for lib missing");
+        // TODO check name
+        $header = new CodeGen_Dependency_Header($attr["name"]);
+
+        if (isset($attr['path'])) {
+            $header->setPath($attr["path"]);
         }
 
-        $this->extension->headers[$attr['name']] = $attr; 
+        if (isset($attr['prepend'])) {
+            $header->setPrepend($attr["prepend"]);
+        }
+
+        $this->extension->addHeader($header);
     }
 }
 
