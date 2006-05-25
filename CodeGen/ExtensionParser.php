@@ -227,7 +227,7 @@ abstract class CodeGen_ExtensionParser
         return true;
     }
 
-    function tagstart_extension_release($attr)
+    function tagstart_release($attr)
     {
         $this->pushHelper(new CodeGen_Release);
         return $this->noAttributes($attr);;
@@ -273,7 +273,7 @@ abstract class CodeGen_ExtensionParser
         return $this->helper->setNotes(CodeGen_Tools_Indent::linetrim($data));
     }
 
-    function tagend_extension_release($attr, $data)
+    function tagend_release($attr, $data)
     {
         $err = $this->extension->setRelease($this->helper);
         $this->popHelper(new CodeGen_Release);
@@ -372,6 +372,7 @@ abstract class CodeGen_ExtensionParser
             return PEAR::raiseError("name attribut for lib missing");
         }
 
+        // TODO need to use addLibs(), libs[] is protected
         $this->extension->libs[$attr['name']] = $attr;
         if (isset($attr['platform'])) {
             $platform = new CodeGen_Tools_Platform($attr["platform"]);
