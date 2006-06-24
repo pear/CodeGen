@@ -51,14 +51,14 @@ abstract class CodeGen_Extension
     * 
     * @return string
     */
-    abstract static public function version();
+    abstract public function version();
 
     /**
     * Copyright message
     *
     * @return string
     */
-    abstract static public function copyright();
+    abstract public function copyright();
 
     /**
      * The extensions basename (C naming rules apply)
@@ -484,6 +484,8 @@ abstract class CodeGen_Extension
         }
 
         $this->headers[$name] = $header;
+
+		// TODO $this->addConfigFragment($header->configm4());
 
         return true;
     }
