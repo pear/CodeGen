@@ -297,7 +297,7 @@ abstract class CodeGen_ExtensionParser
         $license = CodeGen_License::factory(trim($data));
         
         if (PEAR::isError($license)) {
-            return $err;
+            return $license;
         }
         
         return $this->extension->setLicense($license);

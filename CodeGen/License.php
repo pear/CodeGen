@@ -54,7 +54,7 @@ abstract class CodeGen_License
      * @access  public
      * @param   string  License shortname, e.g. PHP, BSD, LGPL
      * @param   array   License options
-     * @returns object  License instance
+     * @returns object  License instance or PEAR error object
      */
     static function factory($name, $options=array()) 
     {
@@ -69,7 +69,7 @@ abstract class CodeGen_License
         return 
             class_exists($classname) 
             ? new $classname($options) 
-            : false;
+            : PEAR::raiseError("Unknown license '$name'");
     }
 
     /**
