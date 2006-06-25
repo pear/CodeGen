@@ -58,6 +58,7 @@ first stable release
             <file role="php">Outbuf.php</file>
             <file role="php">Platform.php</file>
             <file role="php">Indent.php</file>
+            <file role="php">IndentC.php</file>
             <file role="php">Tokenizer.php</file>
             <file role="php">FileReplacer.php</file>
           </dir>

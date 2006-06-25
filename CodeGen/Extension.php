@@ -27,7 +27,6 @@ require_once "CodeGen/Maintainer.php";
 require_once "CodeGen/License.php";
 require_once "CodeGen/Release.php";
 require_once "CodeGen/Tools/Platform.php";
-require_once "CodeGen/Tools/Indent.php";
 require_once "CodeGen/Tools/FileReplacer.php";
 require_once "CodeGen/Tools/Outbuf.php";
 require_once "CodeGen/Dependency/Lib.php";

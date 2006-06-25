@@ -23,7 +23,8 @@
  * includes
  */
 
-require_once("CodeGen/Tools/Indent.php");
+require_once("CodeGen/Tools/IndentC.php");
+// TODO make this configurable by language
 
 /**
  * Wrapper class for code block generation
@@ -85,7 +86,7 @@ class CodeGen_Tools_Code {
      * @return string   formated code block
      */
     function block($code, $indent = 1) {
-        return CodeGen_Tools_Indent::indent($indent*$this->indentSteps, $code);     
+        return CodeGen_Tools_IndentC::indent($indent*$this->indentSteps, $code);     
     }
 
 
@@ -98,8 +99,8 @@ class CodeGen_Tools_Code {
      */
     function varblock($code, $indent = 1) {    
         if ($this->language == 'c') {
-            $head = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, "do {\n");   
-            $foot = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, "} while (0);\n");   
+            $head = CodeGen_Tools_IndentC::indent($indent * $this->indentSteps, "do {\n");   
+            $foot = CodeGen_Tools_IndentC::indent($indent * $this->indentSteps, "} while (0);\n");   
             $indent++;
         } else {
             $head = $foot = "";
