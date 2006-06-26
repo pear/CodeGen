@@ -24,3 +24,6 @@
 - check the include stuff, has to be possible to have more than
   one top level tag in included files
 
+- find out how to validate xi:include with xlint
+
+
