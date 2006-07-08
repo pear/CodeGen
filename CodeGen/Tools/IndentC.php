@@ -41,9 +41,9 @@ class CodeGen_Tools_IndentC
     /**
      * re-indent a block of text
      *
-	 * with C/C++ we need to make sure that preporcessor
-	 * directives always start on the first column
-	 *
+     * with C/C++ we need to make sure that preporcessor
+     * directives always start on the first column
+     *
      * @access public
      * @param  int    number of leading indent spaces
      * @param  string text to reindent
@@ -51,8 +51,8 @@ class CodeGen_Tools_IndentC
      */
     function indent($level, $text) 
     {
-	  $result = parent::indent($level, $text);
+      $result = parent::indent($level, $text);
 
-	  return preg_replace('/^\s+#/m', '#', $result);
-	}  
+      return preg_replace('/^\s+#/m', '#', $result);
+    }  
 }

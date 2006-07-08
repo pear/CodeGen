@@ -559,18 +559,18 @@
         }
 
 
-		/**
-		 * Check that no attributes are given
-		 *
-		 */
-		protected function noAttributes($attr) 
-		{
-		    if (!empty($attr)) {
-			  return PEAR::raiseError("<".end($this->tagStack)."> does not allow any attributes");
-		    }
+        /**
+         * Check that no attributes are given
+         *
+         */
+        protected function noAttributes($attr) 
+        {
+            if (!empty($attr)) {
+              return PEAR::raiseError("<".end($this->tagStack)."> does not allow any attributes");
+            }
 
-		    return true;
-		}
+            return true;
+        }
 
         /**
          * Check attributes

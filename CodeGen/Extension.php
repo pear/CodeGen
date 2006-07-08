@@ -484,7 +484,7 @@ abstract class CodeGen_Extension
 
         $this->headers[$name] = $header;
 
-		// TODO $this->addConfigFragment($header->configm4());
+        // TODO $this->addConfigFragment($header->configm4());
 
         return true;
     }
