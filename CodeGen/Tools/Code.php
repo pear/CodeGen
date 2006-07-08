@@ -106,7 +106,7 @@ class CodeGen_Tools_Code {
             $head = $foot = "";
         }
 
-        $code = CodeGen_Tools_Indent::indent($indent * $this->indentSteps, $code);      
+        $code = CodeGen_Tools_IndentC::indent($indent * $this->indentSteps, $code); 
         return $head . $code . $foot;
     }
 
