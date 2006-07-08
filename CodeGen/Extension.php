@@ -29,6 +29,7 @@ require_once "CodeGen/Release.php";
 require_once "CodeGen/Tools/Platform.php";
 require_once "CodeGen/Tools/FileReplacer.php";
 require_once "CodeGen/Tools/Outbuf.php";
+require_once "CodeGen/Tools/Code.php";
 require_once "CodeGen/Dependency/Lib.php";
 require_once "CodeGen/Dependency/Header.php";
 
@@ -214,6 +215,12 @@ abstract class CodeGen_Extension
     protected $acfragments = array("top"=>array(), "bottom"=>array());
 
 
+    /**
+     * CodeGen_Tool_Code instance for internal use
+     *
+     * @var object
+     */
+    public $codegen;
 
     // {{{ constructor
 
@@ -232,6 +239,8 @@ abstract class CodeGen_Extension
         if ($this->platform == NULL) {
             $this->platform = new CodeGen_Tools_Platform("all");
         }
+
+        $this->codegen = new CodeGen_Tools_Code;
     }
     
     // }}} 
@@ -321,11 +330,13 @@ abstract class CodeGen_Extension
         switch (strtolower($lang)) {
         case "c":
             $this->language = "c";
+            $this->codegen->setLanguage("c");
             return true;
         case "cpp":
         case "cxx":
         case "c++":
             $this->language = "cpp";
+            $this->codegen->setLanguage("cpp");
             return true;
         default:
             break;
