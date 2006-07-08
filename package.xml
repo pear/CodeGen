@@ -24,10 +24,20 @@ CodeGen_MySqlUDF (not released yet).
 
   <release>
     <state>stable</state>
-    <version>1.0.0</version>
-    <date>2006-02-17</date>
+    <version>1.0.1</version>
+    <date>2006-07-09</date>
     <notes>
-first stable release
+Changes since 1.0.0:
+- moved config.m4 stuff to CodeGen_PECL
+- untabify before indent
+- added C specific indentation class that knows not to indent prepro directives
+- added CodeGen_Tools_Code helper object to CodeGen_Extension
+- changed "abstract static" methods to just "abstract" to prevent PHP warnings
+- added target dir support for additional package files
+- changed error handling for licenses
+- better XML attribute checking
+- only set Platform and Release in constructor if not already set
+- extensions summary and description tags now handled here
     </notes>
 
     <deps>
@@ -96,6 +106,22 @@ so declared stable but not given an 1.0 version id yet
       <dep type="pkg" rel="ge" version="1.0">Console_Getopt</dep>
     </deps>
    </release>
+
+   <release>
+     <state>stable</state>
+     <version>1.0.0</version>
+     <date>2006-02-17</date>
+     <notes>
+      first stable  release
+     </notes> 
+
+     <deps>
+       <dep type="php" rel="ge" version="5"/> 
+       <dep type="pkg" rel="ge" version="1.3">PEAR</dep>
+       <dep type="pkg" rel="ge" version="1.0">Console_Getopt</dep>
+     </deps>
+    </release>
+
   </changelog>
 
 </package>
