@@ -83,7 +83,7 @@ class CodeGen_Tools_Indent {
      */
     function indent($level, $text) 
     {
-        // TODO: untabify?
+        $text = self::untabify($text);
 
         $lines = explode("\n", $text);
 
@@ -138,4 +138,4 @@ class CodeGen_Tools_Indent {
     }
 }
 
-?>
+
