@@ -60,6 +60,7 @@ Changes since 1.0.0:
             <file role="php">PHP.php</file>
             <file role="php">BSD.php</file>
             <file role="php">LGPL.php</file>
+            <file role="php">GPL.php</file>
           </dir>
           <file role="php">Command.php</file>
           <dir name="Tools">
