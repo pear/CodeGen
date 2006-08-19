@@ -106,6 +106,25 @@ abstract class CodeGen_Element
     }
 
 
+
+    /**
+     * Conditional compile condition
+     *
+     * @var string
+     */
+    protected $ifCondition = "";
+    
+    /**
+     * ifCondition setter
+     *
+     * @param string preprocessor #if condition
+     */
+    function setIfCondition($code)
+    {
+      $this->ifCondition = $code;
+    }
+
+
     /**
      * Checks whether a string is a reserved name
      *
