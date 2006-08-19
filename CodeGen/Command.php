@@ -111,7 +111,7 @@ class CodeGen_Command
     function showVersion() 
     {
         $fp = fopen("php://stderr", "w");
-        fputs($fp, basename($_SERVER["argv"][0]) . " ". $this->extension->version() . "," . $this->extension->copyright() . "\n");
+        fputs($fp, basename($_SERVER["argv"][0]) . " ". $this->extension->version() . ", " . $this->extension->copyright() . "\n");
         fclose($fp);
     }
 
@@ -125,9 +125,9 @@ class CodeGen_Command
     {
         $fp = fopen("php://stderr", "w");
         
-        if ($message) fputs($fp, "$message\n\n");
+        if ($message) fputs($fp, "$message\n");
         
-        fputs($fp, "Usage:
+        fputs($fp, "\nUsage:
 
 ". $_SERVER["argv"][0] ." [-hxf] [-d dir] [--version] specfile.xml
 
