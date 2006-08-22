@@ -429,7 +429,7 @@
          */
         private function cDataHandler($XmlParser, $data)
         {
-            $this->data.= $data;
+            $this->data.= $this->verbatim ? htmlspecialchars($data) : $data;
             if (!$this->dataLine) {
                 $this->dataLine = xml_get_current_line_number($XmlParser);
             }
