@@ -124,6 +124,36 @@ abstract class CodeGen_Element
       $this->ifCondition = $code;
     }
 
+    
+    /**
+     * Conditional compilation start
+     * 
+     * @return string
+     */
+    function ifConditionStart()
+    {
+      if ($this->ifCondition) {
+        return "#if {$this->ifCondition}\n";
+      }
+
+      return "";
+    }
+
+    /**
+     * Conditional compilation end
+     * 
+     * @return string
+     */
+    function ifConditionEnd()
+    {
+      if ($this->ifCondition) {
+        return "#endif /* {$this->ifCondition} */\n";
+      }
+
+      return "";
+    }
+
+
 
     /**
      * Checks whether a string is a reserved name
