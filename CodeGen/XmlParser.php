@@ -53,7 +53,7 @@
          *
          * @var resource
          */
-        protected $parser = NULL;
+        protected $parser = null;
 
         /**
          * Parser stack for <include> management
@@ -403,7 +403,7 @@
                 if (--$this->verbatimDepth > 0) {
                     $this->data .= "</$tag>";
                     return;
-                } else { 
+                } else {
                     $this->verbatim = false;
                 }               
             }

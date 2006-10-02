@@ -197,7 +197,7 @@ class CodeGen_Maintainer
       */
      function comment()
      {
-         $code = sprintf("   | {$this->comment_prefix} %-59s |\n", "{$this->name} <{$this->email}>");
+         $code   = sprintf("   | {$this->comment_prefix} %-59s |\n", "{$this->name} <{$this->email}>");
          $prefix = "        ";
 
          return $code;

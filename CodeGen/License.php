@@ -22,7 +22,7 @@
 /**
  * includes
  */
-require_once("CodeGen/Tools/FileReplacer.php");
+require_once "CodeGen/Tools/FileReplacer.php";
 
 /**
  * Abstract base class for licenses

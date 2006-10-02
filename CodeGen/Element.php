@@ -121,7 +121,7 @@ abstract class CodeGen_Element
      */
     function setIfCondition($code)
     {
-      $this->ifCondition = $code;
+        $this->ifCondition = $code;
     }
 
     
@@ -132,13 +132,13 @@ abstract class CodeGen_Element
      */
     function ifConditionStart()
     {
-      if ($this->ifCondition) {
-        return "#if {$this->ifCondition}\n";
-      }
-
-      return "";
+        if ($this->ifCondition) {
+            return "#if {$this->ifCondition}\n";
+        }
+        
+        return "";
     }
-
+    
     /**
      * Conditional compilation end
      * 
@@ -146,14 +146,14 @@ abstract class CodeGen_Element
      */
     function ifConditionEnd()
     {
-      if ($this->ifCondition) {
-        return "#endif /* {$this->ifCondition} */\n";
-      }
-
-      return "";
+        if ($this->ifCondition) {
+            return "#endif /* {$this->ifCondition} */\n";
+        }
+        
+        return "";
     }
-
-
+    
+    
 
     /**
      * Checks whether a string is a reserved name
@@ -178,7 +178,7 @@ abstract class CodeGen_Element
      */
     function isName($name) 
     {
-        if (preg_match('|^[a-z_]\w*$|i',$name)) {
+        if (preg_match('|^[a-z_]\w*$|i', $name)) {
             // TODO reserved words
             return true;
         } 

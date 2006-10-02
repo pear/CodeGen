@@ -88,14 +88,14 @@ abstract class CodeGen_Extension
      *
      * @var object
      */
-    protected $license  = NULL;
+    protected $license  = null;
     
     /** 
      * The release info for this extension
      *
      * @var object
      */
-    protected $release  = NULL;
+    protected $release  = null;
         
     /** 
      * The implementation language
@@ -233,10 +233,10 @@ abstract class CodeGen_Extension
     {
         setlocale(LC_ALL, "C"); // ASCII only
 
-        if ($this->release == NULL) {
+        if ($this->release == null) {
             $this->release = new CodeGen_Release;
         }
-        if ($this->platform == NULL) {
+        if ($this->platform == null) {
             $this->platform = new CodeGen_Tools_Platform("all");
         }
 
@@ -598,40 +598,40 @@ abstract class CodeGen_Extension
         $filename = realpath($name);
 
         if (!is_file($filename)) {
-          return PEAR::raiseError("'$name' is not a valid file");
+            return PEAR::raiseError("'$name' is not a valid file");
         }
         
         if (!is_readable($filename)) {
-          return PEAR::raiseError("'$name' is not readable");
+            return PEAR::raiseError("'$name' is not readable");
         }
         
         $pathinfo = pathinfo($filename);
-        $ext = $pathinfo["extension"];
+        $ext      = $pathinfo["extension"];
 
         switch ($ext) {
         case 'c':
-          $this->addConfigFragment("AC_PROG_CC");
-          $this->addPackageFile('code', $filename);
-          break;
+            $this->addConfigFragment("AC_PROG_CC");
+            $this->addPackageFile('code', $filename);
+            break;
         case 'cpp':
         case 'cxx':
         case 'c++':
-          $this->addConfigFragment("AC_PROG_CXX");
-          $this->addConfigFragment("AC_LANG([C++])");
-          $this->addPackageFile('code', $filename);
-          break;
+            $this->addConfigFragment("AC_PROG_CXX");
+            $this->addConfigFragment("AC_LANG([C++])");
+            $this->addPackageFile('code', $filename);
+            break;
         case 'l':
         case 'flex':
-          $this->addConfigFragment("AM_PROG_LEX");
-          $this->addPackageFile('code', $filename);
-          break;
+            $this->addConfigFragment("AM_PROG_LEX");
+            $this->addPackageFile('code', $filename);
+            break;
         case 'y':
         case 'bison':
-          $this->addConfigFragment("AM_PROG_YACC");
-          $this->addPackageFile('code', $filename);
-          break;
+            $this->addConfigFragment("AM_PROG_YACC");
+            $this->addPackageFile('code', $filename);
+            break;
         default:
-          break;
+            break;
         }
         
         return $this->addPackageFile('copy', $filename, $dir);
@@ -683,11 +683,11 @@ abstract class CodeGen_Extension
             
 
     /**
-    * Write .cvsignore entries
-    *
-    * @access public
-    * @param  string  directory to write to
-    */
+     * Write .cvsignore entries
+     *
+     * @access public
+     * @param  string  directory to write to
+     */
     function writeDotCvsignore()
     {
         $file = new CodeGen_Tools_Outbuf($this->dirpath."/.cvsignore");
@@ -758,7 +758,7 @@ Debug_TS
      *
      * @access public
      * @return string Editor settings comment block
-    */
+     */
     function cCodeEditorSettings() 
     {
             return '
@@ -779,7 +779,7 @@ Debug_TS
      * @access public
      * @param  int    Directory nesting depth of target file (default: 3)
      * @return string Editor settings comment block
-    */
+     */
     static function docEditorSettings($level=3) 
     {
         return "";
