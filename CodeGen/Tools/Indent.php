@@ -48,9 +48,8 @@ class CodeGen_Tools_Indent {
     function tabify($text, $tabsize = 4) 
     {
         return preg_replace_callback("/^(".str_repeat(" ", $tabsize).")+/m", 
-            create_function('$matches','return str_repeat("\t", strlen($matches[0])/'.$tabsize.');'), 
-            $text
-        );
+            create_function('$matches', 'return str_repeat("\t", strlen($matches[0])/'.$tabsize.');'), 
+            $text);
     }
 
 
@@ -68,9 +67,8 @@ class CodeGen_Tools_Indent {
     function untabify($text, $tabsize = 4) 
     {
         return preg_replace_callback("/^(\t)*/m", 
-            create_function('$matches','return str_repeat(" ", strlen($matches[0])*'.$tabsize.');'), 
-            $text
-        );
+            create_function('$matches', 'return str_repeat(" ", strlen($matches[0])*'.$tabsize.');'), 
+            $text);
     }
 
     /**
@@ -101,8 +99,8 @@ class CodeGen_Tools_Indent {
             $minIndent = min($minIndent, strlen($matches[0]));
         }
 
-        $result = "";
-        $find = str_repeat(" ", $minIndent);
+        $result  = "";
+        $find    = str_repeat(" ", $minIndent);
         $replace = str_repeat(" ", $level);
         foreach ($lines as $line) {
             $result.= self::tabify(preg_replace("|^$find|", $replace, $line)."\n", 4);
@@ -121,8 +119,8 @@ class CodeGen_Tools_Indent {
      */
     function linetrim($text)
     {
-        $text = preg_replace('|^\s*\n|','', $text);
-        $text = preg_replace('|\n\s*$|',"\n", $text);
+        $text = preg_replace('|^\s*\n|', '', $text);
+        $text = preg_replace('|\n\s*$|', "\n", $text);
         return $text;
     }
 
@@ -133,9 +131,17 @@ class CodeGen_Tools_Indent {
      * @param  string unix text
      * @param  string dos/windows text
      */
-    function dosify($text) {
+    function dosify($text) 
+    {
         return str_replace("\n", "\r\n", $text);
     }
 }
 
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * indent-tabs-mode:nil
+ * End:
+ */
 

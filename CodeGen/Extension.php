@@ -771,7 +771,7 @@ Debug_TS
  * vim<600: noet sw=4 ts=4
  */
 ';
-     }
+    }
 
     /**
      * Generate Editor settings block for documentation files

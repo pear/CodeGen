@@ -51,8 +51,16 @@ class CodeGen_Tools_IndentC
      */
     function indent($level, $text) 
     {
-      $result = parent::indent($level, $text);
+        $result = parent::indent($level, $text);
 
-      return preg_replace('/^\s+#/m', '#', $result);
+        return preg_replace('/^\s+#/m', '#', $result);
     }  
 }
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * indent-tabs-mode:nil
+ * End:
+ */

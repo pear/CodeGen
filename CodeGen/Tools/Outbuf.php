@@ -91,8 +91,7 @@ class CodeGen_Tools_Outbuf
     {
         $stat = true;
 
-        if ($this->path) 
-        {
+        if ($this->path) {
             $text = ob_get_clean();
             
             $fp = new CodeGen_Tools_FileReplacer($this->path);

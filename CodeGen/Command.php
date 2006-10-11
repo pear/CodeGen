@@ -223,8 +223,8 @@ class CodeGen_Command
         $err = $parser->parse();
         if (PEAR::isError($err)) {
             $this->terminate($err->getMessage()." ".$err->getUserInfo());
-        } else if(is_string($err)) {
-          $this->terminate($err);
+        } else if (is_string($err)) {
+            $this->terminate($err);
         }
       
         if ($this->options->have("l", "lint")) {

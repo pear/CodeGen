@@ -61,14 +61,14 @@ class CodeGen_Maintainer
      *
      * @var string
      */
-     protected $role = "developer";
+    protected $role = "developer";
      
     /**
      * First maintainer added?
      *
      * @var bool
      */
-     protected static $first = true;
+    protected static $first = true;
 
     /**
      * Prefix to use in comment headers
@@ -86,122 +86,122 @@ class CodeGen_Maintainer
      * @param  string  email address
      * @param  string  role in this project
      */
-     function __construct($user="unknown", $name="Anonymous Coward", $email="unknown", $role="unknown")
-     {
-       $this->user  = $user;
-         $this->name  = $name;
-         $this->email = $email;
-         $this->role  = $role;
+    function __construct($user="unknown", $name="Anonymous Coward", $email="unknown", $role="unknown")
+    {
+        $this->user  = $user;
+        $this->name  = $name;
+        $this->email = $email;
+        $this->role  = $role;
 
-         if (self::$first) {
-             self::$first = false;
-         } else {
-             $this->comment_prefix = "        ";
-         }
-     }
+        if (self::$first) {
+            self::$first = false;
+        } else {
+            $this->comment_prefix = "        ";
+        }
+    }
 
-     /**
-      * Set CVS user name
-      *
-      * @access public
-      * @param  string CVS user name
-      * @return bool   true on success
-      */
-     function setUser($name) 
-     {
-         if (!preg_match('|^[\w-]+$|i', $name)) {
-             return PEAR::raiseError("'$name' is not a valid CVS user name");
-         }
+    /**
+     * Set CVS user name
+     *
+     * @access public
+     * @param  string CVS user name
+     * @return bool   true on success
+     */
+    function setUser($name) 
+    {
+        if (!preg_match('|^[\w-]+$|i', $name)) {
+            return PEAR::raiseError("'$name' is not a valid CVS user name");
+        }
 
-         $this->user = $name;
-         return true;
-     }
+        $this->user = $name;
+        return true;
+    }
 
-     /**
-      * CVS user getter
-      * 
-      * @access public
-      * @return string
-      */
-     function getUser()
-     {
-         return $this->user;
-     }
+    /**
+     * CVS user getter
+     * 
+     * @access public
+     * @return string
+     */
+    function getUser()
+    {
+        return $this->user;
+    }
 
-     /**
-      * Set real user name
-      *
-      * @access public
-      * @param  string user name
-      * @return bool   true on success
-      */
-     function setName($name) 
-     {
-         $this->name = $name;
-         return true;
-     }
+    /**
+     * Set real user name
+     *
+     * @access public
+     * @param  string user name
+     * @return bool   true on success
+     */
+    function setName($name) 
+    {
+        $this->name = $name;
+        return true;
+    }
 
-     /**
-      * real name getter
-      * 
-      * @access public
-      * @return string
-      */
-     function getName()
-     {
-         return $this->name;
-     }
+    /**
+     * real name getter
+     * 
+     * @access public
+     * @return string
+     */
+    function getName()
+    {
+        return $this->name;
+    }
 
 
-     /**
-      * Set email address
-      *
-      * @access public
-      * @param  string email address
-      * @return bool   true on success
-      */
-     function setEmail($email) 
-     {
-         // TODO check for valid address
+    /**
+     * Set email address
+     *
+     * @access public
+     * @param  string email address
+     * @return bool   true on success
+     */
+    function setEmail($email) 
+    {
+        // TODO check for valid address
 
-         $this->email = $email;
-         return true;
-     }
+        $this->email = $email;
+        return true;
+    }
 
-     /**
-      * Set project role
-      *
-      * @access public
-      * @param  string project role
-      * @return bool   true on success
-      */
-     function setRole($role) 
-     {
-         switch ($role) {
-             case "lead": 
-             case "developer":
-             case "contributor":
-             case "helper":
-                 $this->role = $role;
-                 return true;
-           default:
-             return PEAR::raiseError("'$role' is not a valid maintainer role");
-         }
-     }
+    /**
+     * Set project role
+     *
+     * @access public
+     * @param  string project role
+     * @return bool   true on success
+     */
+    function setRole($role) 
+    {
+        switch ($role) {
+        case "lead": 
+        case "developer":
+        case "contributor":
+        case "helper":
+            $this->role = $role;
+            return true;
+        default:
+            return PEAR::raiseError("'$role' is not a valid maintainer role");
+        }
+    }
 
-     /**
-      * Generate a comment header line for this author
-      *
-      * @access public
-      * @return string comment line 
-      */
-     function comment()
-     {
-         $code   = sprintf("   | {$this->comment_prefix} %-59s |\n", "{$this->name} <{$this->email}>");
-         $prefix = "        ";
+    /**
+     * Generate a comment header line for this author
+     *
+     * @access public
+     * @return string comment line 
+     */
+    function comment()
+    {
+        $code   = sprintf("   | {$this->comment_prefix} %-59s |\n", "{$this->name} <{$this->email}>");
+        $prefix = "        ";
 
-         return $code;
-     }
+        return $code;
+    }
 
 }
 /*

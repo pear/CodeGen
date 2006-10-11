@@ -54,7 +54,7 @@ class CodeGen_Tools_Getopt
      * @param  array    long options specification
      * @param  callback error callback, call this and exit on errors if given
      */
-    function __construct ($short_options, $long_options = NULL, $usage = NULL)
+    function __construct ($short_options, $long_options = null, $usage = null)
     {
         // use parent methods for actual parsing, store result internaly
         $argv = parent::readPHPArgv();
@@ -169,8 +169,7 @@ class CodeGen_Tools_Getopt
                 break;
             }
             
-            foreach ($this->options[0] as $opt)
-            {
+            foreach ($this->options[0] as $opt) {
                 if ($opt[0] == $name) {
                     return is_null($opt[1]) ? true : $opt[1]; 
                 }

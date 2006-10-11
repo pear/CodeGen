@@ -132,16 +132,16 @@ class CodeGen_Release
     function setState($state)
     {
         switch ($state) {
-            case "alpha":
-            case "beta":
-            case "stable":
-            case "snapshot":
-            case "devel":
-                $this->state = $state;
-                return true;
-
-            default:
-                return PEAR::raiseError("'$state' is not a valid release state'");
+        case "alpha":
+        case "beta":
+        case "stable":
+        case "snapshot":
+        case "devel":
+            $this->state = $state;
+            return true;
+            
+        default:
+            return PEAR::raiseError("'$state' is not a valid release state'");
         }
     }
 

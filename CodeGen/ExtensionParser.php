@@ -303,7 +303,8 @@ abstract class CodeGen_ExtensionParser
         return $this->extension->setLicense($license);
     }
 
-    function tagend_extension_code($attr, $data) {
+    function tagend_extension_code($attr, $data) 
+    {
         $err = $this->checkAttributes($attr, array("role", "position"));
         if (PEAR::isError($err)) {
             return $err;
@@ -322,7 +323,7 @@ abstract class CodeGen_ExtensionParser
 
     function tagstart_deps($attr)
     {
-        $err = $this->checkAttributes($attr, array("platform","language"));
+        $err = $this->checkAttributes($attr, array("platform", "language"));
         if (PEAR::isError($err)) {
             return $err;
         }
