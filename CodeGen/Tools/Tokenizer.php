@@ -79,7 +79,8 @@ class CodeGen_Tools_Tokenizer
      *
      * @param   string  String to parse
      */
-    public function __construct($string) {
+    public function __construct($string) 
+    {
         $this->string = $string;
 
         $this->pos = 0;
@@ -91,7 +92,8 @@ class CodeGen_Tools_Tokenizer
      *
      * @return  string
      */
-    private function pullChar() {
+    protected function pullChar() 
+    {
         if ($this->pos >= strlen($this->string)) {
             $this->done = true;
             return "";
@@ -105,7 +107,8 @@ class CodeGen_Tools_Tokenizer
      *
      * @param  string  characters to pusch back
      */
-    private function pushChar($char) {
+    protected function pushChar($char) 
+    {
         // we just rely on the user not cheating
         $this->pos -= strlen($char);
     }
@@ -115,18 +118,22 @@ class CodeGen_Tools_Tokenizer
      *
      * @return  bool  success?
      */
-    public function nextToken() {
+    public function nextToken() 
+    {
+        // return pushed back token if any are available
         if (!empty($this->tokenStack)) {
             list($this->type, $this->token) = array_pop($this->tokenStack);
             return true;
         }
 
+        // skip whitespace
         do {
             $char = $this->pullChar();
             if ($char === "") return false;
         } while (ctype_space($char));
 
         if (ctype_alnum($char) || $char === "_" || $char === "-") {
+            // name or numeric token
             $this->type = "name";
             $this->token = $char;
             while (true) {
@@ -144,12 +151,72 @@ class CodeGen_Tools_Tokenizer
             } 
             if (is_numeric($this->token)) {
                 $this->type = 'numeric';
+
+                // check for decimal point and fraction
+                if ('.' === ($char = $this->pullChar())) {
+                    $this->token .= '.';
+                    while (true) {
+                        $char = $this->pullChar();
+                        if (ctype_digit($char)) {
+                            $this->token .= $char;
+                        } else {
+                            $this->pushChar($char);
+                            break;
+                        }
+                    }
+                } else {
+                    $this->pushChar($char);
+                }
+
+                // check for exponent
+                $char = $this->pullChar();
+                if ($char == 'e' || $char == 'E') {
+                    printf("E!\n");
+                    $exp      = array($char);
+                    $validExp = false;
+                    
+                    $char = $this->pullChar();
+                    if ($char === '+' || $char === '-' || ctype_digit($char)) {
+                        $validExp = ctype_digit($char);
+                        $exp[]    = $char;
+                        while (true) {
+                            $char = $this->pullChar();
+                            if (ctype_digit($char)) {
+                                $exp[] = $char;
+                                $valid = true;
+                            } else {
+                                $this->pushChar($char);
+                                break;
+                            }
+                        }
+                        if ($validExp) {
+                            printf("E valid!\n");
+                            foreach ($exp as $char) {
+                                $this->token.= $char;
+                            }
+                        } else {
+                            printf("E invalid 2!\n");
+                            foreach (array_reverse($exp) as $char) {
+                                $this->pushChar($char);
+                            }
+                        }
+                    } else {
+                        printf("E invalid!\n");
+                        $this->pushChar($char);
+                        $this->pushChar($exp[0]);
+                    }
+                } else {
+                    $this->pushChar($char);
+                }
             }
         } else if ($char == '"' || $char == "'") {
-            $this->type = "string";
+            // quoted string
+            $this->type  = "string";
             $this->token = "";
-            $quote = $char;
+
+            $quote  = $char;
             $escape = false;
+
             while (true) {
                 $char = $this->pullChar();
 
@@ -176,13 +243,14 @@ class CodeGen_Tools_Tokenizer
                 $this->token .= $char;
             }
         } else if ($char === ".") {
+            // we need to distinguish between simple dots and '...'
             $ellipse = false;
-            $char2 = $this->pullChar();
+            $char2   = $this->pullChar();
             if ($char2 === ".") {
                 $char3 = $this->pullChar();
                 if ($char3 === ".") {
                     $ellipse = true;
-                } else { 
+                } else {
                     $this->pushChar($char3);
                 }
             } else {
@@ -194,9 +262,10 @@ class CodeGen_Tools_Tokenizer
                 $this->type  = "name";
             } else {
                 $this->token = ".";
-                $this->type  = "name";
+                $this->type  = "char";
             }
         } else {
+            // any other character is returned "as is"
             $this->token = $char;
             $this->type  = "char";
         }
@@ -208,8 +277,17 @@ class CodeGen_Tools_Tokenizer
      * Push back a parsed token
      *
      */
-    public function pushToken() {
+    public function pushToken() 
+    {
         array_push($this->tokenStack, array($this->type, $this->token));
     }
      
 }
+
+/*
+ * Local variables:
+ * tab-width: 4
+ * c-basic-offset: 4
+ * indent-tabs-mode:nil
+ * End:
+ */
