@@ -124,6 +124,15 @@ abstract class CodeGen_Element
         $this->ifCondition = $code;
     }
 
+    /**
+     * ifCondition getter
+     *
+     * @return string
+     */
+    function getIfCondition()
+    {
+      return $this->ifCondition;
+    }
     
     /**
      * Conditional compilation start
