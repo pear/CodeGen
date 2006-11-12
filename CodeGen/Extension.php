@@ -658,7 +658,7 @@ abstract class CodeGen_Extension
 		 
 		 // TODO check for invalid comment characters
 		 
-		 $this->defines = array("name" => $name, "value" => $value, "comment" => $comment);
+		 $this->defines[] = array("name" => $name, "value" => $value, "comment" => $comment);
 		 
 		 return true;
 	}
