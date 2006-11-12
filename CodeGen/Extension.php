@@ -189,6 +189,14 @@ abstract class CodeGen_Extension
 
 
     /**
+     * Up front #defines
+     *
+     * @var array
+     */
+    protected $defines = array();
+
+
+    /**
      * Makefile fragments
      *
      * @var    array
@@ -634,6 +642,26 @@ abstract class CodeGen_Extension
         
         return $this->addPackageFile('copy', $filename, $dir);
     }
+
+	/**
+	 * Add up front define
+	 *
+	 * @access public
+	 * @param  string  #define name
+	 * @param  string  value
+	 * @param  string  comment
+	 */
+	function addDefine($name, $value, $comment) {
+		 if (! CodeGen_Element::isName($name)) {
+            return PEAR::raiseError("'$name' is not a valid define name");
+		 }
+		 
+		 // TODO check for invalid comment characters
+		 
+		 $this->defines = array("name" => $name, "value" => $value, "comment" => $comment);
+		 
+		 return true;
+	}
 
     /**
      * Add makefile fragment

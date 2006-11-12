@@ -409,6 +409,23 @@ abstract class CodeGen_ExtensionParser
 
         $this->extension->addHeader($header);
     }
+
+    function tagstart_deps_define($attr) {
+        if (!isset($attr["name"])) {
+            return PEAR::raiseError("name attribut for define missing");
+        }
+
+        return $this->extension->addDefine($attr['name'], @$attr['value'], @$attr['comment']);
+    }
+
+    function tagend_extension_makefile($attr, $data) {
+        return $this->extension->addMakeFragment(CodeGen_Tools_IndentC::linetrim($data));
+    }
+
+    function tagend_deps_configm4($attr, $data) {
+        return $this->extension->addConfigFragment(CodeGen_Tools_IndentC::linetrim($data), 
+                                                   isset($attr['position']) ? $attr['position'] : "top");
+    }
 }
 
 
