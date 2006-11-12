@@ -553,8 +553,6 @@ abstract class CodeGen_Extension
     function haveVersion($version)
     {
         return version_compare(empty($this->version) ? $this->version() : $this->version, $version) >= 0;
-
-        return true; // 
     }
 
     /**
