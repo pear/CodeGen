@@ -86,7 +86,7 @@ class CodeGen_Maintainer
      * @param  string  email address
      * @param  string  role in this project
      */
-    function __construct($user="unknown", $name="Anonymous Coward", $email="unknown", $role="unknown")
+    function __construct($user="unknown", $name="Anonymous Coward", $email="unknown@example.org", $role="unknown")
     {
         $this->user  = $user;
         $this->name  = $name;
@@ -98,6 +98,22 @@ class CodeGen_Maintainer
         } else {
             $this->comment_prefix = "        ";
         }
+    }
+
+    /** 
+     * System user factory
+     *
+     * @access public
+     * @return Maintainer object
+     */
+    static function systemUser()
+    {
+        $userinfo = posix_getpwuid(posix_geteuid());
+        $hostinfo = posix_uname();
+
+        $user = $userinfo["name"];
+        $name = $userinfo["gecos"];
+        $email= $userinfo["name"]."@php.net"; // TODO detect real domain
     }
 
     /**
