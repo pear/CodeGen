@@ -81,7 +81,7 @@ abstract class CodeGen_Extension
      * @var    string
      * @access private
      */
-    protected $description;
+    protected $description = "";
 
     /** 
      * The license for this extension
