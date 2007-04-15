@@ -396,6 +396,19 @@ abstract class CodeGen_Extension
         return true;
     }
 
+
+    /**
+     * Get Extension Maintainers
+     *
+     * @access public
+     * @param  array   Array of maintainer objects
+     */
+    function getAuthors()
+    {
+        return $this->authors;
+    }
+	
+
     /** 
      * Set release info
      * 
@@ -408,6 +421,18 @@ abstract class CodeGen_Extension
 
         return true;
     }
+
+    /** 
+     * Get release info
+     * 
+     * @access public
+     * @return object
+     */
+    function getRelease()
+    {
+        return $this->release;
+    }
+
 
 
     /** 
@@ -518,7 +543,7 @@ abstract class CodeGen_Extension
         $relpath = str_replace(getcwd(), '.', $this->dirpath);
     
         $msg = "\nYour extension has been created in directory $relpath.\n";
-        $msg.= "See $relpath/README and $relpath/INSTALL for further instructions.\n";
+        $msg.= "See $relpath/README and/or $relpath/INSTALL for further instructions.\n";
 
         return $msg;
     }
