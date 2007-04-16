@@ -448,6 +448,19 @@ abstract class CodeGen_Extension
         return true;
     }
 
+    /** 
+     * Get license 
+     * 
+     * @access public
+     * @return object
+     */
+    function getLicense()
+    {
+        return $this->license;
+    }
+
+	
+
 
     /**
      * Set extension name prefix (for functions etc.)
