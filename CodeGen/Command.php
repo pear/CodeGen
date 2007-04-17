@@ -129,7 +129,7 @@ class CodeGen_Command
         
         fputs($fp, "\nUsage:
 
-". $_SERVER["argv"][0] ." [-hxf] [-d dir] [--version] specfile.xml
+". $_SERVER["argv"][0] ." [-hxfl] [-d dir] [--version] specfile.xml
 
   -h|--help          this message
   -x|--experimental  enable experimental features
