@@ -185,7 +185,7 @@ abstract class CodeGen_Element
      * @param  string The name to check
      * @return bool   true for valid names, false otherwise
      */
-    function isName($name) 
+    static function isName($name) 
     {
         if (preg_match('|^[a-z_]\w*$|i', $name)) {
             // TODO reserved words
