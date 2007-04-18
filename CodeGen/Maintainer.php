@@ -185,6 +185,18 @@ class CodeGen_Maintainer
     }
 
     /**
+     * email getter
+     * 
+     * @access public
+     * @return string
+     */
+    function getEmail()
+    {
+        return $this->email;
+    }
+
+
+    /**
      * Set project role
      *
      * @access public
