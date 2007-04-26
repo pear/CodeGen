@@ -508,19 +508,24 @@ class CodeGen_XmlParser
 
         
     /**
-     * accept various truth values
+     * Convert various boolean value representation
      *
-     * @param  mixed
+     * @param  mixed  value
+     * @param  string optional attribute name string for error messages
      * @return bool
      */
-    protected function toBool($arg)
+    protected function toBool($arg, $name="")
     {
         if (is_bool($arg)) {
             return $arg;
         }
 
         if (is_numeric($arg)) {
-            return ($arg != 0);
+            switch ($arg) {
+            case 0:
+            case 1:
+                return (bool)$arg;                
+            }
         }
 
         if (is_string($arg)) {
@@ -529,12 +534,14 @@ class CodeGen_XmlParser
             case 'yes':
             case 'true':
                 return true;
-            default:
+            case 'off':
+            case 'no':
+            case 'false':
                 return false;
             }
         }
                 
-        return false;
+        return PEAR::raiseError("'$arg' is not a valid value for boolean attribute $attribute");
     }
 
 
