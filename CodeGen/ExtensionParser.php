@@ -422,6 +422,11 @@ abstract class CodeGen_ExtensionParser
         return $this->extension->addMakeFragment(CodeGen_Tools_IndentC::linetrim($data));
     }
 
+    function tagend_extension_acinclude($attr, $data) {
+        $position = isset($attr["position"]) ? $attr["position"] : "bottom";
+        return $this->extension->addAcIncludeFragment($data, $position);
+    }
+    
     function tagend_deps_configm4($attr, $data) {
         return $this->extension->addConfigFragment(CodeGen_Tools_IndentC::linetrim($data), 
                                                    isset($attr['position']) ? $attr['position'] : "top");
